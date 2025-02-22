@@ -1,0 +1,35 @@
+{
+  "description": "Machine Assist",
+  "exclusive_set": "#minecraft:exclusive_set/chest_unique",
+  "supported_items": "#minecraft:enchantable/chest_armor",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 25
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "chest"
+  ],
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "id": "minecraft:enchantment.machine_assist",
+        "attribute": "minecraft:block_interaction_range",
+        "amount": 1,
+        "operation": "add_value"
+      },
+      {
+        "id": "minecraft:enchantment.machine_assist",
+        "attribute": "minecraft:entity_interaction_range",
+        "amount": 1,
+        "operation": "add_value"
+      }
+    ]
+  }
+}

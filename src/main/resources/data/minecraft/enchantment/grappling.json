@@ -1,0 +1,18 @@
+{
+  "description": "Grappling",
+  "supported_items": "#minecraft:enchantable/fishing",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 25
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "any"
+  ]
+}

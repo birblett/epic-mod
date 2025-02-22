@@ -1,0 +1,35 @@
+{
+  "description": "Iron Fist",
+  "exclusive_set": "#minecraft:exclusive_set/chest_unique",
+  "supported_items": "#minecraft:enchantable/chest_armor",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 25
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "chest"
+  ],
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "id": "minecraft:enchantment.iron_fist",
+        "attribute": "minecraft:attack_damage",
+        "amount": 3,
+        "operation": "add_value"
+      },
+      {
+        "id": "minecraft:enchantment.iron_fist",
+        "attribute": "minecraft:attack_knockback",
+        "amount": 1,
+        "operation": "add_value"
+      }
+    ]
+  }
+}

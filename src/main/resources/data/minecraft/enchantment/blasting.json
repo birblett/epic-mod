@@ -1,0 +1,17 @@
+{
+  "description": "Blasting",
+  "exclusive_set": "#minecraft:exclusive_set/riptide",
+  "supported_items": "#minecraft:enchantable/trident",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 25
+  },
+  "anvil_cost": 0,
+  "slots": []
+}

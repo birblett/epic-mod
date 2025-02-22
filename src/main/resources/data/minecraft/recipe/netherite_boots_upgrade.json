@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:smithing_transform",
+  "base": "minecraft:netherite_boots",
+  "addition": "minecraft:prismarine_shard",
+  "template": "minecraft:netherite_upgrade_smithing_template",
+  "result": {
+    "id": "minecraft:netherite_boots",
+    "components": {
+      "minecraft:custom_data": {
+        "Upgraded": true
+      },
+      "minecraft:custom_model_data": {
+        "strings": [
+          "augmented"
+        ]
+      }
+    }
+  }
+}

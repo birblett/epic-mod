@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "epic-mod",
+	"version": "${version}",
+	"name": "epic mod",
+	"description": "this is epic mod",
+	"authors": [
+		"birblett"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://fabricmc.net/"
+	},
+	"license": "MIT",
+	"icon": "assets/epic-mod/icon.png",
+	"environment": "*",
+    "accessWidener" : "epic-mod.accesswidener",
+	"entrypoints": {
+		"main": [
+			"com.birblett.EpicMod"
+		]
+	},
+	"mixins": [
+		"epic-mod.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "*",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

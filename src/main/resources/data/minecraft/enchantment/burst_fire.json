@@ -1,0 +1,19 @@
+{
+  "anvil_cost": 6,
+  "description": "Burst Fire",
+  "exclusive_set": "#minecraft:exclusive_set/ranged_unique",
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "any"
+  ],
+  "supported_items": "#minecraft:enchantable/crossbow",
+  "weight": 1
+}

@@ -1,0 +1,20 @@
+{
+  "values": [
+    "minecraft:cactus",
+    "minecraft:campfire",
+    "minecraft:cramming",
+    "minecraft:dry_out",
+    "minecraft:ender_pearl",
+    "minecraft:freeze",
+    "minecraft:hot_floor",
+    "minecraft:in_fire",
+    "minecraft:in_wall",
+    "minecraft:lava",
+    "minecraft:magic",
+    "minecraft:on_fire",
+    "minecraft:stalagmite",
+    "minecraft:sweet_berry_bush",
+    "minecraft:thorns",
+    "minecraft:wither"
+  ]
+}

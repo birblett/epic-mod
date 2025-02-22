@@ -1,0 +1,19 @@
+{
+  "description": "Thunderbolt",
+  "exclusive_set": "#minecraft:exclusive_set/ranged_strong_unique",
+  "supported_items": "#minecraft:enchantable/bow_and_crossbow",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 25
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "any"
+  ]
+}

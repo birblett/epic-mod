@@ -1,0 +1,1303 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_chestplate",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 1500,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "catalytic_cuirass"
+                  ]
+                },
+                "custom_name": "[{\"color\":\"#E40303\",\"italic\":false,\"text\":\"C\"},{\"color\":\"#EC2E02\",\"text\":\"a\"},{\"color\":\"#F55901\",\"text\":\"t\"},{\"color\":\"#FD8300\",\"text\":\"a\"},{\"color\":\"#FFA400\",\"text\":\"l\"},{\"color\":\"#FFC300\",\"text\":\"y\"},{\"color\":\"#FFE100\",\"text\":\"t\"},{\"color\":\"#CFD907\",\"text\":\"i\"},{\"color\":\"#80B713\",\"text\":\"c \"},{\"color\":\"#30941F\",\"text\":\"C\"},{\"color\":\"#007A41\",\"text\":\"u\"},{\"color\":\"#006985\",\"text\":\"i\"},{\"color\":\"#0059C9\",\"text\":\"r\"},{\"color\":\"#074AF7\",\"text\":\"a\"},{\"color\":\"#2B3FD0\",\"text\":\"s\"},{\"color\":\"#732982\",\"text\":\"s\"}]",
+                "rarity": "epic",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:catalyst": 1
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "0dtruef146-3a24-4d2a-8057-e72e5f8e8b45",
+                      "type": "armor",
+                      "amount": 10,
+                      "operation": "add_value",
+                      "slot": "chest"
+                    },
+                    {
+                      "id": "76268c20-bc31-4819-9a83-c3783c091a89",
+                      "type": "armor_toughness",
+                      "amount": 3,
+                      "operation": "add_value",
+                      "slot": "chest"
+                    },
+                    {
+                      "id": "knockback_resistance",
+                      "type": "knockback_resistance",
+                      "amount": 0.5,
+                      "operation": "add_value",
+                      "slot": "chest"
+                    },
+                    {
+                      "id": "burning_time",
+                      "type": "burning_time",
+                      "amount": -0.5,
+                      "operation": "add_multiplied_total",
+                      "slot": "chest"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                },
+                "damage_resistant": {
+                  "types": "#minecraft:is_fire"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potion",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 64
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_stack_size": 64,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "moonshine"
+                  ]
+                },
+                "custom_name": "[{\"color\":\"#BCB5FF\",\"italic\":false,\"text\":\"M\"},{\"color\":\"#B7CEFD\",\"text\":\"o\"},{\"color\":\"#B2E6FC\",\"text\":\"o\"},{\"color\":\"#ADFFFA\",\"text\":\"n\"},{\"color\":\"#C8F0E0\",\"text\":\"s\"},{\"color\":\"#E4E2C7\",\"text\":\"h\"},{\"color\":\"#FFD3AD\",\"text\":\"i\"},{\"color\":\"#FFC6AD\",\"text\":\"n\"},{\"color\":\"#FFADAD\",\"text\":\"e\"}]",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [],
+                  "show_in_tooltip": true
+                },
+                "potion_contents": {
+                  "custom_color": 4587376,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:haste",
+                      "amplifier": 0,
+                      "duration": 6000,
+                      "show_particles": false
+                    },
+                    {
+                      "id": "minecraft:luck",
+                      "amplifier": 0,
+                      "duration": 6000,
+                      "show_particles": false
+                    },
+                    {
+                      "id": "minecraft:regeneration",
+                      "amplifier": 0,
+                      "duration": 6000,
+                      "show_particles": false
+                    },
+                    {
+                      "id": "minecraft:resistance",
+                      "amplifier": 0,
+                      "duration": 6000,
+                      "show_particles": false
+                    },
+                    {
+                      "id": "minecraft:strength",
+                      "amplifier": 0,
+                      "duration": 6000,
+                      "show_particles": false
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bow",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 490,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "legolas"
+                  ]
+                },
+                "custom_name": "{\"bold\":false,\"italic\":false,\"text\":\"LEGOLAS\"}",
+                "rarity": "epic",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:realinfinity": 1,
+                    "minecraft:hitscan": 1,
+                    "minecraft:mending": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_boots",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 500,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "swift_boots"
+                  ]
+                },
+                "custom_name": "{\"bold\":false,\"italic\":false,\"text\":\"Swift Boots\"}",
+                "rarity": "rare",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:protection": 5,
+                    "minecraft:windstep": 1
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "0dtruef146-3a24-4d2a-8057-e72e5f8e8b45",
+                      "type": "armor",
+                      "amount": 2,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "76268c20-bc31-4819-9a83-c3783c091a89",
+                      "type": "armor_toughness",
+                      "amount": 4,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "545d05a8-9d4d-4f45-85d9-22185bfd9dc5",
+                      "type": "movement_speed",
+                      "amount": 0.05,
+                      "operation": "add_multiplied_total",
+                      "slot": "feet"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tipped_arrow",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 32
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "custom_name": "{\"italic\":false,\"text\":\"Atrophy Arrows\"}",
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "atrophy_arrows"
+                  ]
+                },
+                "potion_contents": {
+                  "custom_color": 7250943,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:wither",
+                      "amplifier": 1,
+                      "duration": 100
+                    },
+                    {
+                      "id": "minecraft:slowness",
+                      "amplifier": 0,
+                      "duration": 60
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_boots",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 800,
+                "custom_name": "{\"bold\":false,\"italic\":false,\"text\":\"Spider Boots\"}",
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "spider_boots"
+                  ]
+                },
+                "rarity": "rare",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:wallcling": 2
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "f1769e3b-0false6-45df-9ae8-2c3b77810392",
+                      "type": "armor",
+                      "amount": 1,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "898be7aa-a4c9-46ff-aa8a-falseddbca514f5",
+                      "type": "armor_toughness",
+                      "amount": 3,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "0c6be3be-f42e-4576-89e0-f0557d78169a",
+                      "type": "sneaking_speed",
+                      "amount": 0.2,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "15ff5ae0-160a-465d-b9bd-5affa7e7f160",
+                      "type": "water_movement_efficiency",
+                      "amount": 0.3,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                },
+                "dyed_color": {
+                  "rgb": 0,
+                  "show_in_tooltip": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_leggings",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 800,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "rocket_pants"
+                  ]
+                },
+                "custom_name": "{\"bold\":false,\"italic\":false,\"text\":\"Rocket Pants\"}",
+                "rarity": "rare",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:hovering": 1
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "f1769e3b-0false6-45df-9ae8-2c3b77810392",
+                      "type": "armor",
+                      "amount": 4,
+                      "operation": "add_value",
+                      "slot": "legs"
+                    },
+                    {
+                      "id": "898be7aa-a4c9-46ff-aa8a-falseddbca514f5",
+                      "type": "armor_toughness",
+                      "amount": 3,
+                      "operation": "add_value",
+                      "slot": "legs"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                },
+                "dyed_color": {
+                  "rgb": 0,
+                  "show_in_tooltip": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_stack_size": 1,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "builder_charm"
+                  ]
+                },
+                "custom_name": "{\"italic\":false,\"text\":\"Builder Charm\"}",
+                "rarity": "uncommon",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                },
+                "attribute_modifiers": [
+                  {
+                    "id": "f86a997a-ef46-4b6e-b7ee-854421e7f121",
+                    "type": "block_interaction_range",
+                    "amount": 2.5,
+                    "operation": "add_value",
+                    "slot": "offhand"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_hoe",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 8000,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "giga_hoe"
+                  ]
+                },
+                "custom_name": "{\"bold\":false,\"italic\":false,\"text\":\"Giga Hoe\"}",
+                "rarity": "epic",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:fortune": 5
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "armor",
+                      "type": "armor",
+                      "amount": 4,
+                      "operation": "add_value",
+                      "slot": "mainhand"
+                    },
+                    {
+                      "id": "block_interaction_range",
+                      "type": "block_interaction_range",
+                      "amount": 2,
+                      "operation": "add_value",
+                      "slot": "mainhand"
+                    },
+                    {
+                      "id": "sneaking_speed",
+                      "type": "sneaking_speed",
+                      "amount": 0.6,
+                      "operation": "add_multiplied_total",
+                      "slot": "mainhand"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:mushroom_stew",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 99
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_stack_size": 99,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "instant_ramen"
+                  ]
+                },
+                "custom_name": "[{\"color\":\"#4DFF00\",\"italic\":false,\"text\":\"I\"},{\"color\":\"#4DFF0F\",\"text\":\"n\"},{\"color\":\"#4DFF1D\",\"text\":\"s\"},{\"color\":\"#4DFF2C\",\"text\":\"t\"},{\"color\":\"#4DFF3B\",\"text\":\"a\"},{\"color\":\"#4DFF49\",\"text\":\"n\"},{\"color\":\"#4DFF58\",\"text\":\"t \"},{\"color\":\"#57FF6E\",\"text\":\"R\"},{\"color\":\"#60FF84\",\"text\":\"a\"},{\"color\":\"#6AFF9A\",\"text\":\"m\"},{\"color\":\"#74FFAF\",\"text\":\"e\"},{\"color\":\"#87FFDB\",\"text\":\"n\"}]",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                },
+                "food": {
+                  "nutrition": 5,
+                  "saturation": 4
+                },
+                "consumable": {
+                  "consume_seconds": 0.1,
+                  "on_consume_effects": [
+                    {
+                      "type": "minecraft:apply_effects",
+                      "effects": [
+                        {
+                          "id": "minecraft:absorption",
+                          "amplifier": 1,
+                          "duration": 3600
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_boots",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 490,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "rider_boots"
+                  ]
+                },
+                "custom_name": "{\"bold\":false,\"italic\":false,\"text\":\"Rider Boots\"}",
+                "rarity": "rare",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:rider": 1
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "f1769e3b-0false6-45df-9ae8-2c3b77810392",
+                      "type": "armor",
+                      "amount": 2,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "898be7aa-a4c9-46ff-aa8a-falseddbca514f5",
+                      "type": "armor_toughness",
+                      "amount": 3,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_nugget",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_stack_size": 1,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "brawler_knuckles"
+                  ]
+                },
+                "item_name": "[{\"color\":\"#B300FF\",\"text\":\"B\"},{\"color\":\"#AF11FF\",\"text\":\"r\"},{\"color\":\"#AA21FF\",\"text\":\"a\"},{\"color\":\"#A632FF\",\"text\":\"w\"},{\"color\":\"#A243FF\",\"text\":\"l\"},{\"color\":\"#9E53FF\",\"text\":\"e\"},{\"color\":\"#9964FF\",\"text\":\"r \"},{\"color\":\"#9575FF\",\"text\":\"K\"},{\"color\":\"#9575FF\",\"text\":\"n\"},{\"color\":\"#9964FF\",\"text\":\"u\"},{\"color\":\"#9E53FF\",\"text\":\"c\"},{\"color\":\"#A243FF\",\"text\":\"k\"},{\"color\":\"#A632FF\",\"text\":\"l\"},{\"color\":\"#AA21FF\",\"text\":\"e\"},{\"color\":\"#B300FF\",\"text\":\"s\"}]",
+                "unbreakable": {
+                  "show_in_tooltip": false
+                },
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                },
+                "attribute_modifiers": [
+                  {
+                    "id": "28fc679d-9238-49fb-9278-0cbff365ef2d",
+                    "type": "attack_damage",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "offhand"
+                  },
+                  {
+                    "id": "756b050d-2944-4b0f-8af6-db2da6e8adf3",
+                    "type": "attack_speed",
+                    "amount": 0.1,
+                    "operation": "add_value",
+                    "slot": "offhand"
+                  },
+                  {
+                    "id": "09d705eb-8153-4b3c-96d0-9f76d29e0c6c",
+                    "type": "attack_knockback",
+                    "amount": 0.5,
+                    "operation": "add_value",
+                    "slot": "offhand"
+                  },
+                  {
+                    "id": "df7ae39b-8a98-410e-b3false-0daa6fb3f05e",
+                    "type": "jump_strength",
+                    "amount": 0.3,
+                    "operation": "add_multiplied_total",
+                    "slot": "offhand"
+                  }
+                ],
+                "trim": {
+                  "material": "minecraft:quartz",
+                  "pattern": "minecraft:spire",
+                  "show_in_tooltip": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_chestplate",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 700,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "hydra_skin_armor"
+                  ]
+                },
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:vigor": 1
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "brawler_armor",
+                      "type": "armor",
+                      "amount": 6,
+                      "operation": "add_value",
+                      "slot": "chest"
+                    },
+                    {
+                      "id": "armor_toughness",
+                      "type": "armor_toughness",
+                      "amount": 6,
+                      "operation": "add_value",
+                      "slot": "chest"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                },
+                "item_name": "{\"color\":\"light_purple\",\"text\":\"Hydra Skin Armor\"}",
+                "dyed_color": {
+                  "rgb": 8508928,
+                  "show_in_tooltip": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:splash_potion",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 99
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_stack_size": 99,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "bottled_ludfru"
+                  ]
+                },
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                },
+                "custom_name": "{\"bold\":false,\"italic\":false,\"text\":\"Bottled Ludfru\"}",
+                "potion_contents": {
+                  "potion": "minecraft:harming",
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:oozing",
+                      "amplifier": 0,
+                      "duration": 1200
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "custom_name": "{\"italic\":false,\"text\":\"Baseball Bat\"}",
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "baseball_bat"
+                  ]
+                },
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                },
+                "rarity": "uncommon",
+                "attribute_modifiers": [
+                  {
+                    "id": "attack_damage",
+                    "type": "attack_damage",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "mainhand"
+                  },
+                  {
+                    "id": "attack_knockback",
+                    "type": "attack_knockback",
+                    "amount": 0.75,
+                    "operation": "add_value",
+                    "slot": "mainhand"
+                  }
+                ],
+                "max_stack_size": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_helmet",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 1250,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "kit_miner_helmet"
+                  ]
+                },
+                "custom_name": "{\"italic\":false,\"text\":\"Miner's Helmet\"}",
+                "unbreakable": {},
+                "rarity": "epic",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:night_vision": 1
+                  }
+                },
+                "attribute_modifiers": [
+                  {
+                    "id": "dd5a4156-33d3-45ec-ad8c-d34d7a8cd0fc",
+                    "type": "block_break_speed",
+                    "amount": 0.1,
+                    "operation": "add_multiplied_total",
+                    "slot": "head"
+                  },
+                  {
+                    "id": "428897a0-5ff8-49ae-ab3f-e772a9d02922",
+                    "type": "submerged_mining_speed",
+                    "amount": 0.5,
+                    "operation": "add_value",
+                    "slot": "head"
+                  },
+                  {
+                    "id": "37c909d1-101e-4935-8ea0-52b565557b55",
+                    "type": "oxygen_bonus",
+                    "amount": 1,
+                    "operation": "add_value",
+                    "slot": "head"
+                  },
+                  {
+                    "id": "6f67e579-d815-489c-94fa-79660c8f33fb",
+                    "type": "armor",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "head"
+                  },
+                  {
+                    "id": "04fbc706-5495-4a5f-b51e-d033c82f8633",
+                    "type": "armor_toughness",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "head"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_chestplate",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "kit_miner_mail"
+                  ]
+                },
+                "max_damage": 1500,
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:machine_assist": 1
+                  }
+                },
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "chest3",
+                      "type": "block_break_speed",
+                      "amount": 0.1,
+                      "operation": "add_multiplied_total",
+                      "slot": "chest"
+                    },
+                    {
+                      "id": "chest1",
+                      "type": "armor",
+                      "amount": 7,
+                      "operation": "add_value",
+                      "slot": "chest"
+                    },
+                    {
+                      "id": "chest2",
+                      "type": "armor_toughness",
+                      "amount": 2,
+                      "operation": "add_value",
+                      "slot": "chest"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                },
+                "item_name": "{\"color\":\"light_purple\",\"text\":\"Miner's Mail\"}"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_pickaxe",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 10000,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "miner_pickaxe"
+                  ]
+                },
+                "item_name": "{\"color\":\"yellow\",\"text\":\"Miner's Pickaxe\"}",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:feather",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_stack_size": 1,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "normal_feather"
+                  ]
+                },
+                "custom_name": "{\"italic\":false,\"text\":\"Normal Feather\"}",
+                "damage_resistant": {
+                  "types": "#minecraft:is_fire"
+                },
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                },
+                "attribute_modifiers": [
+                  {
+                    "id": "743f2c05-8d48-428e-924e-8efd1002a14c",
+                    "type": "movement_speed",
+                    "amount": 0.1,
+                    "operation": "add_multiplied_total",
+                    "slot": "offhand"
+                  },
+                  {
+                    "id": "e24ceedb-578d-428c-b451-b9dac6bf2ca5",
+                    "type": "attack_speed",
+                    "amount": 0.1,
+                    "operation": "add_multiplied_total",
+                    "slot": "offhand"
+                  },
+                  {
+                    "id": "0138b7de-7d88-43ca-b54c-60398dfalsec079",
+                    "type": "armor",
+                    "amount": 1,
+                    "operation": "add_value",
+                    "slot": "offhand"
+                  },
+                  {
+                    "id": "e94adtrue2-3b23-41d8-991d-7etrue573e949e",
+                    "type": "gravity",
+                    "amount": -0.3,
+                    "operation": "add_multiplied_total",
+                    "slot": "offhand"
+                  },
+                  {
+                    "id": "a9163e2e-6053-497f-a3f3-6657d35ead28",
+                    "type": "safe_fall_distance",
+                    "amount": 5,
+                    "operation": "add_value",
+                    "slot": "offhand"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_boots",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 500,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "feather_boots"
+                  ]
+                },
+                "custom_name": "{\"italic\":false,\"text\":\"Feather Boots\"}",
+                "rarity": "epic",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:featherweight": 1,
+                    "minecraft:feather_falling": 4
+                  }
+                },
+                "attribute_modifiers": [
+                  {
+                    "id": "299d7e9a-59c0-4988-8ada-0139cc4bdb92",
+                    "type": "armor",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "feet"
+                  },
+                  {
+                    "id": "233d8715-c69b-453b-b7f1-7ec8cc094bbb",
+                    "type": "armor_toughness",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "feet"
+                  },
+                  {
+                    "id": "3032fc32-64e1-4a97-a0a1-454b77ac89b2",
+                    "type": "gravity",
+                    "amount": -0.2,
+                    "operation": "add_multiplied_total",
+                    "slot": "feet"
+                  }
+                ],
+                "dyed_color": {
+                  "rgb": 10936831,
+                  "show_in_tooltip": false
+                },
+                "trim": {
+                  "material": "minecraft:quartz",
+                  "pattern": "minecraft:spire",
+                  "show_in_tooltip": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blaze_rod",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_stack_size": 1,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "gay_rod"
+                  ]
+                },
+                "custom_name": "[{\"color\":\"#E40303\",\"italic\":false,\"text\":\"G\"},{\"color\":\"#FF8C00\",\"text\":\"a\"},{\"color\":\"#FFED00\",\"text\":\"y\"},{\"color\":\"#FF8C00\",\"text\":\" \"},{\"color\":\"#008026\",\"text\":\"R\"},{\"color\":\"#004CFF\",\"text\":\"o\"},{\"color\":\"#732982\",\"text\":\"d\"}]",
+                "damage_resistant": {
+                  "types": "#minecraft:is_fire"
+                },
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:blast_protection": 1,
+                    "minecraft:feather_falling": 1,
+                    "minecraft:fire_protection": 1,
+                    "minecraft:projectile_protection": 1,
+                    "minecraft:protection": 1,
+                    "minecraft:thorns": 1,
+                    "minecraft:aqua_affinity": 1,
+                    "minecraft:depth_strider": 1,
+                    "minecraft:frost_walker": 1,
+                    "minecraft:respiration": 1,
+                    "minecraft:soul_speed": 1,
+                    "minecraft:swift_sneak": 1,
+                    "minecraft:bane_of_arthropods": 1,
+                    "minecraft:breach": 1,
+                    "minecraft:density": 1,
+                    "minecraft:fire_aspect": 1,
+                    "minecraft:knockback": 1,
+                    "minecraft:looting": 1,
+                    "minecraft:sharpness": 1,
+                    "minecraft:smite": 1,
+                    "minecraft:sweeping_edge": 1,
+                    "minecraft:wind_burst": 1,
+                    "minecraft:flame": 1,
+                    "minecraft:power": 1,
+                    "minecraft:punch": 1,
+                    "minecraft:quick_charge": 1,
+                    "minecraft:multishot": 1,
+                    "minecraft:piercing": 1,
+                    "minecraft:infinity": 1,
+                    "minecraft:channeling": 1,
+                    "minecraft:impaling": 1,
+                    "minecraft:loyalty": 1,
+                    "minecraft:riptide": 1,
+                    "minecraft:efficiency": 1,
+                    "minecraft:fortune": 1,
+                    "minecraft:silk_touch": 1,
+                    "minecraft:mending": 1,
+                    "minecraft:unbreaking": 1,
+                    "minecraft:luck_of_the_sea": 1,
+                    "minecraft:lure": 1,
+                    "minecraft:binding_curse": 1
+                  }
+                },
+                "attribute_modifiers": [
+                  {
+                    "id": "78c5418b-c5be-4592-9a7e-fdd693c3133e",
+                    "type": "jump_strength",
+                    "amount": 0.2,
+                    "operation": "add_multiplied_total",
+                    "slot": "hand"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_boots",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 800,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "zoomy_boots"
+                  ]
+                },
+                "custom_name": "[{\"bold\":false,\"color\":\"#5BCEFA\",\"italic\":false,\"text\":\"T\"},{\"color\":\"#8AC3E6\",\"text\":\"h\"},{\"color\":\"#BAB7D1\",\"text\":\"e \"},{\"color\":\"#E9ACBD\",\"text\":\"Z\"},{\"color\":\"#F7BDC8\",\"text\":\"o\"},{\"color\":\"#FAD7DE\",\"text\":\"o\"},{\"color\":\"#FDF2F4\",\"text\":\"m\"},{\"color\":\"#FDF2F4\",\"text\":\"y \"},{\"color\":\"#FAD7DE\",\"text\":\"B\"},{\"color\":\"#F7BDC8\",\"text\":\"o\"},{\"color\":\"#E9ACBD\",\"text\":\"o\"},{\"color\":\"#BAB7D1\",\"text\":\"t\"},{\"color\":\"#5BCEFA\",\"italic\":false,\"text\":\"s\"}]",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:mending": 1
+                  }
+                },
+                "rarity": "epic",
+                "enchantment_glint_override": true,
+                "attribute_modifiers": {
+                  "modifiers": [
+                    {
+                      "id": "armor",
+                      "type": "armor",
+                      "amount": 2,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "armor_toughness",
+                      "type": "armor_toughness",
+                      "amount": 2,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "movement_speed",
+                      "type": "movement_speed",
+                      "amount": 0.15,
+                      "operation": "add_multiplied_base",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "sneaking_speed",
+                      "type": "sneaking_speed",
+                      "amount": 0.5,
+                      "operation": "add_multiplied_total",
+                      "slot": "feet"
+                    },
+                    {
+                      "id": "step_height",
+                      "type": "step_height",
+                      "amount": 0.5,
+                      "operation": "add_value",
+                      "slot": "feet"
+                    }
+                  ],
+                  "show_in_tooltip": true
+                },
+                "dyed_color": {
+                  "rgb": 16777215,
+                  "show_in_tooltip": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:fishing_rod",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_damage": 600,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "grappling_hook"
+                  ]
+                },
+                "custom_name": "[{\"color\":\"#FFF433\",\"italic\":false,\"text\":\"G\"},{\"color\":\"#FFF762\",\"text\":\"r\"},{\"color\":\"#FFF991\",\"text\":\"a\"},{\"color\":\"#FFFCC0\",\"text\":\"p\"},{\"color\":\"#FFFEEF\",\"text\":\"p\"},{\"color\":\"#F0E5F8\",\"text\":\"l\"},{\"color\":\"#D9BFED\",\"text\":\"i\"},{\"color\":\"#C199E2\",\"text\":\"n\"},{\"color\":\"#AA73D7\",\"text\":\"g \"},{\"color\":\"#8F52C0\",\"text\":\"H\"},{\"color\":\"#6B3E90\",\"text\":\"o\"},{\"color\":\"#482960\",\"text\":\"o\"},{\"color\":\"#000000\",\"text\":\"k\"}]",
+                "rarity": "uncommon",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1,
+                    "minecraft:grappling": 1,
+                    "minecraft:mending": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potion",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 32
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "max_stack_size": 32,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "super_potion_of_speed"
+                  ]
+                },
+                "custom_name": "{\"bold\":false,\"italic\":false,\"text\":\"SUPER POTION OF SPEED\"}",
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                },
+                "hide_additional_tooltip": {},
+                "potion_contents": {
+                  "custom_color": 8249855,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:speed",
+                      "amplifier": 9,
+                      "duration": 1200
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potion",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 64
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "potion_contents": {
+                  "custom_color": 16777215,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:dolphins_grace",
+                      "amplifier": 0,
+                      "duration": -1,
+                      "show_particles": false
+                    }
+                  ]
+                },
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "yogurt"
+                  ]
+                },
+                "custom_name": "{\"color\":\"white\",\"text\":\"Cum\", \"italic\":false}",
+                "max_stack_size": 64,
+                "enchantments": {
+                  "levels": {
+                    "minecraft:soulbound": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

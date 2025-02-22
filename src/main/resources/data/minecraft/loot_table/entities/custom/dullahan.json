@@ -1,0 +1,104 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_helmet",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "death_protection": {
+                  "death_effects": [
+                    {
+                      "type": "minecraft:clear_all_effects"
+                    },
+                    {
+                      "type": "minecraft:apply_effects",
+                      "effects": [
+                        {
+                          "id": "minecraft:absorption",
+                          "amplifier": 1,
+                          "duration": 300
+                        },
+                        {
+                          "id": "minecraft:fire_resistance",
+                          "amplifier": 1,
+                          "duration": 300
+                        },
+                        {
+                          "id": "minecraft:fire_resistance",
+                          "amplifier": 3,
+                          "duration": 300
+                        },
+                        {
+                          "id": "minecraft:resistance",
+                          "amplifier": 2,
+                          "duration": 100
+                        }
+                      ]
+                    },
+                    {
+                      "type": "minecraft:play_sound",
+                      "sound": "item.totem.use"
+                    }
+                  ]
+                },
+                "equippable": {
+                  "slot": "offhand",
+                  "dispensable": true,
+                  "swappable": true
+                },
+                "custom_name": "{\"color\":\"yellow\",\"italic\":false,\"text\":\"Dullahan Head\"}",
+                "item_model": "minecraft:zombie_head",
+                "attribute_modifiers": [
+                  {
+                    "id": "armor",
+                    "type": "armor",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "offhand"
+                  },
+                  {
+                    "id": "armor_toughness",
+                    "type": "armor_toughness",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "offhand"
+                  }
+                ],
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "dullahan_head"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.3
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:entities/custom/zombie_elite"
+        }
+      ]
+    }
+  ]
+}

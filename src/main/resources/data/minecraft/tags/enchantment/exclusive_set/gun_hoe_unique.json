@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:fortune",
+    "minecraft:silk_touch",
+    "minecraft:gun_hoe_auto",
+    "minecraft:gun_hoe_bolt",
+    "minecraft:gun_hoe_sawed_off",
+    "minecraft:gun_hoe_snipe",
+    "minecraft:gun_hoe_tactical"
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:enchanted_book",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:stored_enchantments": {
+                  "levels": {
+                    "minecraft:magic_guard": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:enchanted_book",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:stored_enchantments": {
+                  "levels": {
+                    "minecraft:thunderbolt": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_chestplate",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "custom_name": "{\"color\":\"aqua\",\"italic\":false,\"text\":\"Hearty Plate\"}",
+                "attribute_modifiers": [
+                  {
+                    "id": "chest_armor",
+                    "type": "armor",
+                    "amount": 8,
+                    "operation": "add_value",
+                    "slot": "chest"
+                  },
+                  {
+                    "id": "chest_armor_toughness",
+                    "type": "armor_toughness",
+                    "amount": 2,
+                    "operation": "add_value",
+                    "slot": "chest"
+                  },
+                  {
+                    "id": "chest_max_health",
+                    "type": "max_health",
+                    "amount": 4,
+                    "operation": "add_value",
+                    "slot": "chest"
+                  }
+                ],
+                "max_damage": 1500,
+                "minecraft:custom_model_data": {
+                  "strings": [
+                    "hearty_plate"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.25
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:entities/custom/zombie_boss"
+        }
+      ]
+    }
+  ]
+}
