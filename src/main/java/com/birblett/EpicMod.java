@@ -36,6 +36,7 @@ public class EpicMod implements ModInitializer {
     public static final RegistryKey<Enchantment> RIDER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("rider"));
     public static final RegistryKey<Enchantment> ROCKET = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("rocket"));
     public static final RegistryKey<Enchantment> SLIPSTREAM = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("slipstream"));
+    public static final RegistryKey<Enchantment> SNIPER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("sniper"));
     public static final RegistryKey<Enchantment> SOULBOUND = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("soulbound"));
     public static final RegistryKey<Enchantment> THUNDERBOLT = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("thunderbolt"));
     public static final RegistryKey<Enchantment> WALLCLING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("wallcling"));

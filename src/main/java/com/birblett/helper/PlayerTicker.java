@@ -23,6 +23,7 @@ public class PlayerTicker {
         LEAPING,
         ROCKET,
         SLIPSTREAM,
+        SNIPER,
         WALLCLING,
 
         THUNDER_TOME

@@ -29,7 +29,7 @@
               "components": {
                 "minecraft:stored_enchantments": {
                   "levels": {
-                    "minecraft:flak": 1
+                    "minecraft:sniper": 1
                   }
                 }
               }

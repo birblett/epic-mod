@@ -29,7 +29,7 @@ public class ArrowRain extends AnonymousTicker {
         this.target = target;
         this.weaponStack = weaponStack;
         this.projectileStack = projectileStack;
-        this.ticks = 16;
+        this.ticks = 12;
     }
 
     @Override

@@ -1,6 +1,7 @@
 {
   "values": [
+    "minecraft:heroic",
     "minecraft:night_vision",
-    "minecraft:heroic"
+    "minecraft:sniper"
   ]
 }

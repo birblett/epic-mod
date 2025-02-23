@@ -26,6 +26,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.LlamaSpitEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.*;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
@@ -87,6 +88,10 @@ public class Util {
 
     public static boolean isTouchingBlock(Entity self, double tolerance) {
         return isTouchingBlock(self, tolerance, tolerance, tolerance);
+    }
+
+    public static boolean hasEnchant(LivingEntity e, EquipmentSlot slot, RegistryKey<Enchantment> key) {
+        return e != null && Util.hasEnchant(e.getEquippedStack(slot), key, e.getWorld());
     }
 
     public static boolean hasEnchant(ItemStack stack, RegistryKey<Enchantment> key, World world) {
@@ -281,11 +286,11 @@ public class Util {
         return crit|| !(shooter instanceof PlayerEntity);
     }
 
-    public static void applyArrowModifications(LivingEntity shooter, ItemStack stack, ServerWorld world, Entity entity) {
+    public static void applyArrowModifications(LivingEntity shooter, ItemStack stack, ServerWorld world, ProjectileEntity entity) {
         applyArrowModifications(shooter, stack, world, entity, false);
     }
 
-    public static void applyArrowModifications(LivingEntity shooter, ItemStack stack, ServerWorld world, Entity entity, boolean isSummoned) {
+    public static void applyArrowModifications(LivingEntity shooter, ItemStack stack, ServerWorld world, ProjectileEntity entity, boolean isSummoned) {
         if (!isSummoned && Util.hasEnchant(stack, EpicMod.ARROW_RAIN, world) && canApplyCrit(shooter, entity)) {
             ((AbilityUser) entity).addAbilities(Ability.SUMMON_ARROWS, Ability.NO_KNOCKBACK);
         }
@@ -327,6 +332,10 @@ public class Util {
                 if (entity.isRemoved()) break;
                 if (entity.isOnGround()) break;
             }
+        }
+        if (Util.canApplyCrit(shooter, shooter.isSneaking()) && shooter.isOnGround() && Util.hasEnchant(shooter, EquipmentSlot.HEAD,
+                EpicMod.SNIPER) && entity instanceof PersistentProjectileEntity p) {
+            p.setDamage(p.getDamage() + 1);
         }
     }
 

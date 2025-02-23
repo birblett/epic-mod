@@ -74,6 +74,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
         this.tickers.put(PlayerTicker.ID.LEAPING, new Leaping(instance, this.attributeManager));
         this.tickers.put(PlayerTicker.ID.ROCKET, new Rocket(instance, this.attributeManager));
         this.tickers.put(PlayerTicker.ID.SLIPSTREAM, new Slipstream(instance, this.attributeManager));
+        this.tickers.put(PlayerTicker.ID.SNIPER, new Sniper(instance, this.attributeManager));
         this.tickers.put(PlayerTicker.ID.WALLCLING, new Wallcling(instance, this.attributeManager));
         this.tickers.put(PlayerTicker.ID.THUNDER_TOME, new ThunderTomeCooldown(instance, this.attributeManager));
     }
