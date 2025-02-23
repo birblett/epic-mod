@@ -563,7 +563,7 @@ public class SpawnPools {
                 .baseAttribute(SCALE, 0.75)
                 .setAbilities(IGNORE_FIRE, ELITE));
         SKELETONS.addModifier(12500 - 260, noOp());
-        EpicMod.LOGGER.info("Loaded skeleton spawn pools");
+        EpicMod.LOGGER.info("Loaded skeleton spawn pools: {}", SKELETONS);
     }
 
 }
