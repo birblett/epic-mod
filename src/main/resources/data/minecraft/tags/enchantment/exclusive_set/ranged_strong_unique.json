@@ -1,6 +1,7 @@
 {
   "values": [
     "#minecraft:exclusive_set/ranged_unique",
-    "minecraft:power"
+    "minecraft:power",
+    "minecraft:quick_charge"
   ]
 }

@@ -2,6 +2,7 @@ package com.birblett.mixin.base;
 
 import com.birblett.helper.Ability;
 import com.birblett.interfaces.AbilityUser;
+import com.birblett.interfaces.OwnedProjectile;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,7 +27,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 @Mixin(LightningEntity.class)
-public abstract class LightningEntityMixin extends Entity implements AbilityUser {
+public abstract class LightningEntityMixin extends Entity implements AbilityUser, OwnedProjectile {
 
     @Shadow
     @Final
@@ -34,9 +36,21 @@ public abstract class LightningEntityMixin extends Entity implements AbilityUser
     private int remainingActions;
     @Shadow
     private int ambientTick = 2;
+    @Unique
+    private LivingEntity owner;
 
     public LightningEntityMixin(EntityType<?> type, World world) {
         super(type, world);
+    }
+
+    @Override
+    public void setProjectileOwner(LivingEntity e) {
+        this.owner = e;
+    }
+
+    @Override
+    public LivingEntity getProjectileOwner() {
+        return this.owner;
     }
 
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getOtherEntities(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;)Ljava/util/List;", ordinal = 1))

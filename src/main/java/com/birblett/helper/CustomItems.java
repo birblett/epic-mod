@@ -23,6 +23,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
@@ -86,11 +87,11 @@ public class CustomItems {
                 Util.damagingRaycast(world, player, pos2, dir.multiply(0.05), 20, 0.05, -1,
                         ParticleTypes.CRIT, false, false, null, false, 0.08);
             }
-            LivingEntity hit = Util.damagingRaycast(world, player, pos2, dir.multiply(0.05), 20, 0.05, crit ? 9 : 4,
+            var hit = Util.damagingRaycast(world, player, pos2, dir.multiply(0.05), 20, 0.05, crit ? 9 : 4,
                     ParticleTypes.ELECTRIC_SPARK, false, true, world.getDamageSources().playerAttack(player), true, 0.01);
             if (hit != null) {
-                if (crit) {
-                    Util.playSound(world, hit, SoundEvents.ENTITY_ARROW_HIT_PLAYER, 2, 1.2f);
+                if (crit && hit instanceof EntityHitResult e && e.getEntity() instanceof LivingEntity entity) {
+                    Util.playSound(world, entity, SoundEvents.ENTITY_ARROW_HIT_PLAYER, 2, 1.2f);
                 }
                 break;
             } else {
@@ -170,7 +171,7 @@ public class CustomItems {
     public static final String FARMER_BOOTS = withCustomModel("leather_boots[custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"I RIDE MY HORSE\"}',enchantments={levels:{\"minecraft:rider\":1,\"minecraft:depth_strider\":3}}]", "ride_my_horse");
 
     public static final String GUNNER_HELMET = "turtle_helmet[unbreakable={}]";
-    public static final String GUNNER_TRIDENT = withCustomModel("trident[custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Blaster Bolt\"}',max_damage=1000,enchantments={levels:{\"minecraft:blasting\":1}]", "blaster_bolt");
+    public static final String GUNNER_TRIDENT = withCustomModel("trident[custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Blaster Bolt\"}',max_damage=1000,enchantments={levels:{\"minecraft:blasting\":1}}]", "blaster_bolt");
     private static final EntityAttributeModifier GUNNER_MODIFIER = new EntityAttributeModifier(Identifier.of("guardian_plate"), 1,
             EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     public static final String GUNNER_PLATE = withCustomModel(withEvent("diamond_chestplate[custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Guardian Plate\"}',max_damage=1500]", GUNNER_ID, TICK_EVENTS, (player, stack, held, world) -> {

@@ -3,6 +3,7 @@ package com.birblett;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -22,6 +23,7 @@ public class EpicMod implements ModInitializer {
     public static final RegistryKey<Enchantment> DASH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("air_dash"));
     public static final RegistryKey<Enchantment> DOUBLE_JUMP = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("double_jump"));
     public static final RegistryKey<Enchantment> FEATHERWEIGHT = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("featherweight"));
+    public static final RegistryKey<Enchantment> FLAK = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("flak"));
     public static final RegistryKey<Enchantment> FOCUS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("focus"));
     public static final RegistryKey<Enchantment> GRAPPLING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("grappling"));
     public static final RegistryKey<Enchantment> HEAVY_SHOT = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("heavy_shot"));
@@ -39,6 +41,7 @@ public class EpicMod implements ModInitializer {
     public static final RegistryKey<Enchantment> WALLCLING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("wallcling"));
 
     public static final TagKey<DamageType> INDIRECT_DAMAGE = TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.ofVanilla("indirect"));
+    public static final TagKey<Item> CAN_AUGMENT = TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("augmentable"));
 
     @Override
     public void onInitialize() {}

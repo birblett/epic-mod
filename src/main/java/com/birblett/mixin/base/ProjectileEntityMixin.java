@@ -2,6 +2,7 @@ package com.birblett.mixin.base;
 
 import com.birblett.helper.Ability;
 import com.birblett.interfaces.AbilityUser;
+import com.birblett.interfaces.OwnedProjectile;
 import com.birblett.interfaces.ProjectileInterface;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -9,6 +10,7 @@ import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -18,6 +20,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -33,8 +36,6 @@ public abstract class ProjectileEntityMixin implements ProjectileInterface, Abil
     private boolean leftOwner;
     @Shadow
     protected abstract void onCollision(HitResult hitResult);
-
-    @Shadow public abstract @Nullable Entity getOwner();
 
     @Unique
     private Double life = null;
@@ -73,12 +74,8 @@ public abstract class ProjectileEntityMixin implements ProjectileInterface, Abil
     private void onEntityHitEvents(EntityHitResult entityHitResult, CallbackInfo ci) {
         Entity et = entityHitResult.getEntity();
         if (this.hasAbility(Ability.SUMMON_LIGHTNING) && et.getWorld() instanceof ServerWorld world) {
-            ProjectileEntity self = ((ProjectileEntity) (Object) this);
-            LightningEntity entity = new LightningEntity(EntityType.LIGHTNING_BOLT, world);
-            entity.setPosition(self.getPos());
-            world.spawnEntity(entity);
-            ((AbilityUser) entity).addAbilities(Ability.OWNED);
-            self.discard();
+            ProjectileEntity p = ((ProjectileEntity) (Object) this);
+            summonLightning(world, p.getPos(), p);
             ci.cancel();
         }
         if (this.hasAbility(Ability.IGNORE_IFRAMES)) {
@@ -99,19 +96,35 @@ public abstract class ProjectileEntityMixin implements ProjectileInterface, Abil
     private void onBlockHitEvents(BlockHitResult blockHitResult, CallbackInfo ci) {
         ProjectileEntity p = (ProjectileEntity) (Object) this;
         if (this.hasAbility(Ability.SUMMON_LIGHTNING) && p.getWorld() instanceof ServerWorld world) {
-            LightningEntity entity = new LightningEntity(EntityType.LIGHTNING_BOLT, world);
-            entity.setPosition(blockHitResult.getPos());
-            world.spawnEntity(entity);
-            ((AbilityUser) entity).addAbilities(Ability.OWNED);
-            p.discard();
+            summonLightning(world, blockHitResult.getPos(), p);
             ci.cancel();
         }
+    }
+
+    @Unique
+    private static void summonLightning(ServerWorld world, Vec3d pos, ProjectileEntity p) {
+        LightningEntity entity = new LightningEntity(EntityType.LIGHTNING_BOLT, world);
+        entity.setPosition(pos);
+        world.spawnEntity(entity);
+        ((AbilityUser) entity).addAbilities(Ability.OWNED);
+        if (p.getOwner() instanceof LivingEntity e) {
+            ((OwnedProjectile) entity).setProjectileOwner(e);
+        }
+        p.discard();
     }
 
     @Inject(method = "onCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/ProjectileEntity;onBlockHit(Lnet/minecraft/util/hit/BlockHitResult;)V"), cancellable = true)
     private void cancelCollision(HitResult hitResult, CallbackInfo ci) {
         if (this.hasAbility(Ability.NOCLIP)) {
             ci.cancel();
+        }
+    }
+
+    @Inject(method = "onCollision", at = @At("TAIL"))
+    private void discardAfterCollision(HitResult hitResult, CallbackInfo ci) {
+        ProjectileEntity p = (ProjectileEntity) (Object) this;
+        if (!p.isRemoved() && this.hasAbility(Ability.DISCARD_AFTER)) {
+            p.discard();
         }
     }
 

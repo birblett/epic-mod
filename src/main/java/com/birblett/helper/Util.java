@@ -1,6 +1,7 @@
 package com.birblett.helper;
 
 import com.birblett.EpicMod;
+import com.birblett.helper.tracked_values.BurstFire;
 import com.birblett.helper.tracked_values.Homing;
 import com.birblett.interfaces.AbilityUser;
 import com.birblett.interfaces.ProjectileInterface;
@@ -9,9 +10,11 @@ import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -21,11 +24,10 @@ import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.LlamaSpitEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.particle.ParticleEffect;
@@ -39,10 +41,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
@@ -50,6 +53,7 @@ import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionImpl;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -163,6 +167,11 @@ public class Util {
                 RANDOM.nextDouble() * maxAngle), in, RANDOM.nextDouble() * Math.PI * 2).normalize();
     }
 
+    public static Vec3d rotateAsPlane(Vec3d in, double angle) {
+        Vec3d axis = (in = in.normalize()).y == 1 || in.y == -1 ? AXIS_X : in.crossProduct(AXIS_Y).normalize().crossProduct(in);
+        return rotateAbout(in, axis, angle).normalize();
+    }
+
     public static Vec3d rotateTowards(Vec3d base, Vec3d target, double angle) {
         if (base.lengthSquared() == 0 || target.lengthSquared() == 0) {
             return base;
@@ -173,15 +182,20 @@ public class Util {
                 base.dotProduct(target)), 0, Math.abs(angle)));
     }
 
-    public static LivingEntity damagingRaycast(ServerWorld world, LivingEntity user, Vec3d pos, Vec3d dir, int length, double collision, float damage, ParticleEffect p, boolean ignoreBlocks, boolean blockBreakParticles) {
+    public static void rotateEntity(Entity e, Vec3d rotation) {
+        rotation = rotation.normalize();
+        e.rotate((float) Math.toDegrees(Math.atan2(rotation.x, rotation.z)), (float) Math.toDegrees(Math.asin(rotation.y)));
+    }
+
+    public static HitResult damagingRaycast(ServerWorld world, LivingEntity user, Vec3d pos, Vec3d dir, int length, double collision, float damage, ParticleEffect p, boolean ignoreBlocks, boolean blockBreakParticles) {
         return damagingRaycast(world, user, pos, dir, length, collision, damage, p, ignoreBlocks, blockBreakParticles, world.getDamageSources().thrown(user, null), true, 0.01);
     }
 
-    public static LivingEntity damagingRaycast(ServerWorld world, LivingEntity user, Vec3d pos, Vec3d dir, int length, double collision, float damage, ParticleEffect p, boolean ignoreBlocks, boolean blockBreakParticles, DamageSource source, boolean ignoreIframes, double speed) {
+    public static HitResult damagingRaycast(ServerWorld world, LivingEntity user, Vec3d pos, Vec3d dir, int length, double collision, float damage, ParticleEffect p, boolean ignoreBlocks, boolean blockBreakParticles, DamageSource source, boolean ignoreIframes, double speed) {
         BlockPos b;
         VoxelShape vs;
         Box box;
-        LivingEntity returnable = null;
+        HitResult returnable = null;
         for (int iter = 0; iter < length; iter++) {
             if (!ignoreBlocks) {
                 b = new BlockPos((int) Math.floor(pos.x), (int) Math.floor(pos.y), (int) Math.floor(pos.z));
@@ -191,7 +205,7 @@ public class Util {
                     if (blockBreakParticles) {
                         Util.emitBlockBreakParticles(world, b);
                     }
-                    return null;
+                    return new BlockHitResult(pos, Direction.UP, b, true);
                 }
             }
             if (p != null && iter % 3 == 0) {
@@ -219,9 +233,9 @@ public class Util {
                     }
                     if (returnable == null) {
                         if (entity instanceof LivingEntity livingEntity) {
-                            returnable = livingEntity;
+                            returnable = new EntityHitResult(livingEntity);
                         } else if (entity instanceof EnderDragonPart dragonPart) {
-                            returnable = dragonPart.owner;
+                            returnable = new EntityHitResult(dragonPart.owner);
                         }
                     }
                 }
@@ -263,13 +277,17 @@ public class Util {
         return e instanceof PersistentProjectileEntity p && (p.isCritical() || !(shooter instanceof PlayerEntity));
     }
 
+    private static boolean canApplyCrit(LivingEntity shooter, boolean crit) {
+        return crit|| !(shooter instanceof PlayerEntity);
+    }
+
     public static void applyArrowModifications(LivingEntity shooter, ItemStack stack, ServerWorld world, Entity entity) {
         applyArrowModifications(shooter, stack, world, entity, false);
     }
 
     public static void applyArrowModifications(LivingEntity shooter, ItemStack stack, ServerWorld world, Entity entity, boolean isSummoned) {
         if (!isSummoned && Util.hasEnchant(stack, EpicMod.ARROW_RAIN, world) && canApplyCrit(shooter, entity)) {
-            ((AbilityUser) entity).addAbilities(Ability.SUMMON_ARROWS);
+            ((AbilityUser) entity).addAbilities(Ability.SUMMON_ARROWS, Ability.NO_KNOCKBACK);
         }
         if (Util.hasEnchant(stack, EpicMod.HEAVY_SHOT, world) || Util.hasEnchant(stack, EpicMod.BURST_FIRE, world)) {
             ((AbilityUser) entity).addAbilities(Ability.IGNORE_IFRAMES);
@@ -308,6 +326,51 @@ public class Util {
                 // stop if unable to continue
                 if (entity.isRemoved()) break;
                 if (entity.isOnGround()) break;
+            }
+        }
+    }
+
+    public static void rangedWeaponFired(ServerWorld world, LivingEntity shooter, ItemStack stack, Hand hand, List<ItemStack> projectiles, float speed, float divergence, float progress, boolean crit) {
+        if (shooter instanceof ServerPlayerEntity player && crit && Util.hasEnchant(stack, EpicMod.BURST_FIRE, world)) {
+            BurstFire t = (BurstFire) ((ServerPlayerEntityInterface) player).getTickers(PlayerTicker.ID.BURST_FIRE);
+            int duration = 4 + 4 * Util.getEnchantLevel(stack, EpicMod.BURST_FIRE, player.getServerWorld());
+            t.setUsing(stack, hand, duration);
+            t.setShooting(projectiles, speed, divergence);
+            player.getItemCooldownManager().set(stack, duration + 1);
+        }
+        if (Util.hasEnchant(stack, EpicMod.MIGHTY_WIND, world)) {
+            for (int i = 0; i < Math.ceil(progress * 3); i++) {
+                LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(EntityType.LLAMA_SPIT, world);
+                llamaSpitEntity.setOwner(shooter);
+                llamaSpitEntity.setPosition(shooter.getEyePos().x, shooter.getEyeY() - 0.1F, shooter.getEyePos().z);
+                llamaSpitEntity.setVelocity(shooter.getRotationVector().multiply(progress * 2));
+                llamaSpitEntity.setInvisible(true);
+                world.spawnEntity(llamaSpitEntity);
+                llamaSpitEntity.kill(world);
+            }
+            world.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.ENTITY_BREEZE_SHOOT, shooter
+                    .getSoundCategory(), 0.7F, 1.4F + (shooter.getRandom().nextFloat() - shooter
+                    .getRandom().nextFloat()) * 0.2F);
+            shooter.setVelocity(shooter.getVelocity().multiply(0.7).add(shooter.getRotationVector().multiply(-1.2 * progress)));
+            shooter.velocityModified = true;
+            world.getOtherEntities(shooter, new Box(shooter.getEyePos().add(-5, -5, -5), shooter.getEyePos()
+                    .add(5, 5, 5)), e -> e.getPos().squaredDistanceTo(shooter.getEyePos().add(shooter.getRotationVector()
+                    .multiply(2.5))) <= 9).forEach(e -> {
+                e.addVelocity(shooter.getRotationVector().multiply(Math.min(1, progress)));
+                e.velocityModified = true;
+            });
+        }
+        if (Util.hasEnchant(stack, EpicMod.FLAK, world) && Util.canApplyCrit(shooter, crit)) {
+            Vec3d base = shooter.getRotationVector();
+            for (int i = 0; i < 12; ++i) {
+                PersistentProjectileEntity arrow = ((ArrowItem) Items.ARROW).createArrow(world, Items.ARROW.getDefaultStack(), shooter, stack);
+                Vec3d velocity = Util.applyDivergence(base, i < 6 ? 0.14 : 0.42).normalize();
+                arrow.setVelocity(velocity);
+                arrow.setCritical(true);
+                ((AbilityUser) arrow).addAbilities(Ability.DISCARD_AFTER, Ability.IGNORE_IFRAMES, Ability.NO_KNOCKBACK);
+                Util.applyArrowModifications(shooter, stack, world, arrow);
+                Util.rotateEntity(arrow, velocity);
+                world.spawnEntity(arrow);
             }
         }
     }

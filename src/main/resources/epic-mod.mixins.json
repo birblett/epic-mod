@@ -36,7 +36,6 @@
     "extra.CommandManagerMixin",
     "extra.CrossbowAttackGoalMixin",
     "extra.EnderPearlEntityMixin",
-    "extra.EntityMixin",
     "extra.EntityTypeMixin",
     "extra.EvokerFangsEntityMixin",
     "extra.HostileEntityMixin",

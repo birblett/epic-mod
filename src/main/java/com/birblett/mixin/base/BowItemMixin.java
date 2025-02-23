@@ -26,6 +26,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.List;
+
 @Mixin(BowItem.class)
 public abstract class BowItemMixin extends RangedWeaponItem {
 
@@ -60,30 +62,10 @@ public abstract class BowItemMixin extends RangedWeaponItem {
         }
     }
 
-    @Inject(method = "onStoppedUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;incrementStat(Lnet/minecraft/stat/Stat;)V"))
-    private void recoil(ItemStack stack, World world, LivingEntity user, int remainingUseTicks, CallbackInfoReturnable<Boolean> cir, @Local float f) {
-        if (world instanceof ServerWorld serverWorld && Util.hasEnchant(stack, EpicMod.MIGHTY_WIND, world)) {
-            for (int i = 0; i < Math.ceil(f * 3); i++) {
-                LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(EntityType.LLAMA_SPIT, serverWorld);
-                llamaSpitEntity.setOwner(user);
-                llamaSpitEntity.setPosition(user.getEyePos().x, user.getEyeY() - 0.1F, user.getEyePos().z);
-                llamaSpitEntity.setVelocity(user.getRotationVector().multiply(f * 2));
-                llamaSpitEntity.setInvisible(true);
-                serverWorld.spawnEntity(llamaSpitEntity);
-                llamaSpitEntity.kill(serverWorld);
-            }
-            serverWorld.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_BREEZE_SHOOT, user
-                    .getSoundCategory(), 0.7F, 1.4F + (user.getRandom().nextFloat() - user
-                    .getRandom().nextFloat()) * 0.2F);
-            user.setVelocity(user.getVelocity().multiply(0.7).add(user.getRotationVector().multiply(-1.2 * f)));
-            user.velocityModified = true;
-            serverWorld.getOtherEntities(user, new Box(user.getEyePos().add(-5, -5, -5), user.getEyePos()
-                    .add(5, 5, 5)), e -> e.getPos().squaredDistanceTo(user.getEyePos().add(user.getRotationVector()
-                    .multiply(2.5))) <= 9).forEach(e -> {
-                e.addVelocity(user.getRotationVector().multiply(Math.min(1, f)));
-                e.velocityModified = true;
-            });
-        }
+    @WrapOperation(method = "onStoppedUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BowItem;shootAll(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;Ljava/util/List;FFZLnet/minecraft/entity/LivingEntity;)V"))
+    private void weaponFiredEvent(BowItem instance, ServerWorld serverWorld, LivingEntity shooter, Hand hand, ItemStack stack, List<ItemStack> projectiles, float speed, float divergence, boolean crit, LivingEntity target, Operation<Void> original, @Local float f) {
+        original.call(instance, serverWorld, shooter, hand, stack, projectiles, speed, divergence, crit, target);
+        Util.rangedWeaponFired(serverWorld, shooter, stack, hand, projectiles, speed, divergence, f, crit);
     }
 
 }

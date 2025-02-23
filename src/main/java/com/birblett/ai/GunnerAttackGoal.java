@@ -83,7 +83,8 @@ public class GunnerAttackGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (this.target != null && this.target.isAlive() && !this.target.isInCreativeMode() && this.mob.squaredDistanceTo(this.target) <= 3600) {
+        if (this.target != null && this.target.isAlive() && !this.target.isInCreativeMode() && !this.target.isSpectator() &&
+                this.mob.squaredDistanceTo(this.target) <= 3600) {
             this.mob.setTarget(this.target);
             return true;
         } else {
@@ -126,7 +127,7 @@ public class GunnerAttackGoal extends Goal {
                                         0, ParticleTypes.ELECTRIC_SPARK, true, false);
                             } else if (this.attackingTicks < 25 && this.attackingTicks % 2 == 0) {
                                 this.lookAt(this.dir);
-                                Entity e = Util.shootProjectile(world, this.mob, Items.GOLD_NUGGET, 10, this.dir, 1.5,
+                                Entity e = Util.shootProjectile(world, this.mob, Items.GOLD_NUGGET, 15, this.dir, 1.5,
                                         0.09, 30, true);
                                 e.setGlowing(true);
                                 ((AbilityUser) e).addAbilities(BOSS_FLAG, IGNORE_WATER);
@@ -141,7 +142,7 @@ public class GunnerAttackGoal extends Goal {
                             if (this.attackingTicks <= 15 && this.attackingTicks > 7 && this.attackingTicks % 3 == 0) {
                                 Vec3d tmp = this.rotateAndPredict(1.1, 1, 1);
                                 this.lookAt(tmp);
-                                Entity e = Util.shootProjectile(world, this.mob, Items.GOLD_NUGGET, enraged ? 17 : 13, tmp, 1.5,
+                                Entity e = Util.shootProjectile(world, this.mob, Items.GOLD_NUGGET, enraged ? 22 : 16, tmp, 1.5,
                                         0.05, 30, true);
                                 ((AbilityUser) e).addAbilities(BOSS_FLAG, IGNORE_WATER);
                                 e.setGlowing(true);
@@ -171,7 +172,7 @@ public class GunnerAttackGoal extends Goal {
                             }
                             if (this.attackingTicks == 5 || this.attackingTicks == 25) {
                                 for (int i = 0; i < (enraged ? 20 : 12); ++i) {
-                                    Entity e =Util.shootProjectile(world, this.mob, Items.GOLD_NUGGET, 4, this.dir, 1.3,
+                                    Entity e =Util.shootProjectile(world, this.mob, Items.GOLD_NUGGET, 8, this.dir, 1.3,
                                             enraged ? 0.32 : 0.24, 12, true);
                                     ((AbilityUser) e).addAbilities(BOSS_FLAG, IGNORE_WATER);
                                     e.setGlowing(true);

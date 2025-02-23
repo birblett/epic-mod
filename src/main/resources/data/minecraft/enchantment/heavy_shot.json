@@ -31,7 +31,7 @@
       "value": 0.3
     }
   },
-  "exclusive_set": "#minecraft:exclusive_set/heavy_shot",
+  "exclusive_set": "#minecraft:exclusive_set/ranged_strong_unique",
   "max_cost": {
     "base": 75,
     "per_level_above_first": 0

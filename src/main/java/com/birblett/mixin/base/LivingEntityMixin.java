@@ -1,17 +1,25 @@
 package com.birblett.mixin.base;
 
 import com.birblett.EpicMod;
+import com.birblett.helper.Ability;
 import com.birblett.helper.AnonymousTicker;
 import com.birblett.helper.PlayerTicker;
 import com.birblett.helper.Util;
 import com.birblett.helper.tracked_values.Homing;
+import com.birblett.interfaces.AbilityUser;
 import com.birblett.interfaces.ServerPlayerEntityInterface;
 import com.birblett.interfaces.TickedEntity;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
@@ -63,6 +71,12 @@ public abstract class LivingEntityMixin extends Entity implements TickedEntity {
             this.tickers.forEach(AnonymousTicker::tick);
             this.tickers.removeIf(AnonymousTicker::shouldRemove);
         }
+    }
+
+    @WrapOperation(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;isIn(Lnet/minecraft/registry/tag/TagKey;)Z", ordinal = 6))
+    private boolean yup(DamageSource instance, TagKey<DamageType> tag, Operation<Boolean> original, @Local(argsOnly = true) DamageSource source) {
+        boolean b = source.getSource() instanceof AbilityUser a && a.hasAbility(Ability.NO_KNOCKBACK);
+        return b || original.call(instance, tag);
     }
 
 }

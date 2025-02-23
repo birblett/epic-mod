@@ -1,10 +1,13 @@
 {
   "values": [
-    "minecraft:thunderbolt",
-    "minecraft:focus",
+    "minecraft:adaptability",
+    "minecraft:arrow_rain",
     "minecraft:autoaim",
     "minecraft:burst_fire",
-    "minecraft:arrow_rain",
-    "minecraft:multishot"
+    "minecraft:flak",
+    "minecraft:focus",
+    "minecraft:heavy_shot",
+    "minecraft:multishot",
+    "minecraft:thunderbolt"
   ]
 }

@@ -1,6 +1,6 @@
 {
   "description": "Mighty Wind",
-  "supported_items": "#minecraft:enchantable/bow",
+  "supported_items": "#minecraft:enchantable/bow_and_crossbow",
   "weight": 1,
   "max_level": 1,
   "min_cost": {

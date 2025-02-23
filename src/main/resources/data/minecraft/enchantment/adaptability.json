@@ -1,14 +1,7 @@
 {
   "description": "Adaptability",
-  "exclusive_set": [
-    "minecraft:power",
-    "minecraft:piercing",
-    "minecraft:quick_charge"
-  ],
-  "supported_items": [
-    "minecraft:bow",
-    "minecraft:crossbow"
-  ],
+  "exclusive_set": "#minecraft:exclusive_set/ranged_strong_unique",
+  "supported_items":  "#minecraft:enchantable/bow_and_crossbow",
   "weight": 1,
   "max_level": 1,
   "min_cost": {

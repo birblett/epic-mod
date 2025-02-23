@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -18,6 +19,7 @@ import net.minecraft.recipe.SmithingTransformRecipe;
 import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +27,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -38,9 +41,8 @@ public class SmithingTransformRecipeMixin {
     @Inject(method = "craft(Lnet/minecraft/recipe/input/SmithingRecipeInput;Lnet/minecraft/registry/RegistryWrapper$WrapperLookup;)Lnet/minecraft/item/ItemStack;", at = @At("RETURN"), cancellable = true)
     private void rejectInvalidSpecialRecipe(SmithingRecipeInput smithingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup, CallbackInfoReturnable<ItemStack> cir, @Local ItemStack stack) {
         NbtComponent nbtComponent;
-        if (!stack.isEmpty() && smithingRecipeInput.addition().getItem().equals(Items.EMERALD) && smithingRecipeInput.base()
-                .get(DataComponentTypes.EQUIPPABLE) != null && smithingRecipeInput.template().getItem()
-                .equals(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) {
+        if (!stack.isEmpty() && smithingRecipeInput.addition().isOf(Items.PRISMARINE_SHARD) && (smithingRecipeInput.base()
+                .isIn(EpicMod.CAN_AUGMENT)) && smithingRecipeInput.template().isOf(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) {
             if((nbtComponent = smithingRecipeInput.base().get(DataComponentTypes.CUSTOM_DATA)) != null && nbtComponent.contains("Upgraded")
                 || (nbtComponent = smithingRecipeInput.addition().get(DataComponentTypes.CUSTOM_DATA)) == null || !nbtComponent.contains("Augment")) {
                 cir.setReturnValue(ItemStack.EMPTY);
@@ -98,6 +100,22 @@ public class SmithingTransformRecipeMixin {
                     }
                 }
                 stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, builder.build());
+                ArrayList<Float> floats = new ArrayList<>();
+                ArrayList<Boolean> flags = new ArrayList<>();
+                ArrayList<String> strings = new ArrayList<>();
+                ArrayList<Integer> ints = new ArrayList<>();
+                strings.add("augmented");
+                if (stack.get(DataComponentTypes.CUSTOM_MODEL_DATA) instanceof CustomModelDataComponent c) {
+                    floats.addAll(c.floats());
+                    flags.addAll(c.flags());
+                    strings.addAll(c.strings());
+                    ints.addAll(c.colors());
+                }
+                stack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(floats, flags, strings, ints));
+                NbtComponent n = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(new NbtCompound()));
+                NbtCompound nbtCompound = n.copyNbt();
+                nbtCompound.putBoolean("Upgraded", true);
+                stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbtCompound));
             }
         } else if (!stack.isEmpty() && smithingRecipeInput.addition().getItem().equals(Items.NETHERITE_INGOT) && smithingRecipeInput.base()
                 .get(DataComponentTypes.EQUIPPABLE) != null && smithingRecipeInput.template().getItem()

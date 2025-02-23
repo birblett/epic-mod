@@ -1,6 +1,7 @@
 package com.birblett.ai;
 
 import com.birblett.helper.Ability;
+import com.birblett.helper.Util;
 import com.birblett.interfaces.AbilityUser;
 import com.birblett.interfaces.Mage;
 import com.birblett.interfaces.ProjectileInterface;
@@ -185,23 +186,29 @@ public class ArchmageAttackGoal extends Goal {
                             icicle.setPosition(spawnPos.addRandom(this.zombie.getRandom(), 1));
                             icicle.setVelocity(new Vec3d(0, -0.5, 0).addRandom(this.zombie.getRandom(), 0.3f));
                             ((AbilityUser) icicle).addAbilities(IGNORE_IFRAMES, CLIP_OWNER, BOSS_FLAG, IGNORE_WATER);
-                            ((ProjectileInterface) icicle).setDamage(8);
+                            ((ProjectileInterface) icicle).setDamage(18);
                             world.spawnParticles(ParticleTypes.POOF, spawnPos.x, spawnPos.y, spawnPos.z, 2, 0.5, 0.3, 0.5, 0.05);
                             world.spawnEntity(icicle);
                             int max = phase2 ? 20 : 18;
                             if (this.attackingTicks % (phase2 ? 4 : 6) == 0) {
-                                icicle = new SnowballEntity(world, this.zombie, i.getDefaultStack());
-                                icicle.setVelocity(this.target.getEyePos().subtract(this.zombie.getEyePos()).normalize().multiply(0.5
-                                        + (max - this.attackingTicks) / 25.0));
-                                icicle.setNoGravity(true);
-                                icicle.setGlowing(true);
-                                icicle.noClip = true;
-                                ((AbilityUser) icicle).addAbilities(IGNORE_IFRAMES, CLIP_OWNER, BOSS_FLAG, NOCLIP);
-                                ((ProjectileInterface) icicle).setDamage(15);
-                                ((ProjectileInterface) icicle).setLife(((max - this.attackingTicks) + 6) * 3);
-                                world.spawnEntity(icicle);
-                                world.playSound(null, this.zombie.getX(), this.zombie.getY(), this.zombie.getZ(),
-                                        SoundEvents.BLOCK_GLASS_BREAK, this.zombie.getSoundCategory(), 1.0F, 2.0F);
+                                for (int start = phase2 ? 0 : 1; start < (phase2 ? 3 : 2); ++start) {
+                                    Vec3d aim = this.target.getEyePos().subtract(this.zombie.getEyePos()).normalize();
+                                    if (start != 1) {
+                                        aim = Util.rotateAsPlane(aim, (start - 1) * 0.56);
+                                    }
+                                    icicle = new SnowballEntity(world, this.zombie, i.getDefaultStack());
+                                    double mul = 0.5 + (max - this.attackingTicks) / 25.0;
+                                    icicle.setVelocity(aim.multiply(mul));
+                                    icicle.setNoGravity(true);
+                                    icicle.setGlowing(true);
+                                    icicle.noClip = true;
+                                    ((AbilityUser) icicle).addAbilities(IGNORE_IFRAMES, CLIP_OWNER, BOSS_FLAG, NOCLIP);
+                                    ((ProjectileInterface) icicle).setDamage(21);
+                                    ((ProjectileInterface) icicle).setLife(((max - this.attackingTicks) + 6) * 3);
+                                    world.spawnEntity(icicle);
+                                    world.playSound(null, this.zombie.getX(), this.zombie.getY(), this.zombie.getZ(),
+                                            SoundEvents.BLOCK_GLASS_BREAK, this.zombie.getSoundCategory(), 1.0F, 2.0F);
+                                }
                             }
                         }
                     }

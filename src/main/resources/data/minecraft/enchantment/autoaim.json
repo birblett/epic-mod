@@ -1,6 +1,6 @@
 {
   "description": "Autoaim",
-  "supported_items": "#minecraft:enchantable/bow",
+  "supported_items": "#minecraft:enchantable/bow_and_crossbow",
   "exclusive_set": "#minecraft:exclusive_set/ranged_strong_unique",
   "weight": 1,
   "max_level": 1,

@@ -24,7 +24,7 @@ public class BotPanicPearlGoal extends Goal {
             if (this.cooldownTicks <= 0 && this.zombie.getWorld() instanceof ServerWorld world) {
                 OminousItemSpawnerEntity e = OminousItemSpawnerEntity.create(world, Items.ENDER_PEARL.getDefaultStack());
                 e.setPosition(target.getPos().add(0, 0.25, 0));
-                ((OwnedProjectile) e).setOwner(this.zombie);
+                ((OwnedProjectile) e).setProjectileOwner(this.zombie);
                 world.spawnEntity(e);
                 this.cooldownTicks = 60;
             } else if ((this.zombie.hurtTime == 8 || this.zombie.hurtTime == 9)) {

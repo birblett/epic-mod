@@ -1,9 +1,10 @@
 package com.birblett.interfaces;
 
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.LivingEntity;
 
 public interface OwnedProjectile {
 
-    void setOwner(MobEntity e);
+    default void setProjectileOwner(LivingEntity e) {};
+    default LivingEntity getProjectileOwner() { return null; };
 
 }

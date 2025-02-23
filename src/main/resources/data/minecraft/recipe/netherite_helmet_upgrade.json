@@ -4,16 +4,6 @@
   "addition": "minecraft:prismarine_shard",
   "template": "minecraft:netherite_upgrade_smithing_template",
   "result": {
-    "id": "minecraft:netherite_helmet",
-    "components": {
-      "minecraft:custom_data": {
-        "Upgraded": true
-      },
-      "minecraft:custom_model_data": {
-        "strings": [
-          "augmented"
-        ]
-      }
-    }
+    "id": "minecraft:netherite_helmet"
   }
 }

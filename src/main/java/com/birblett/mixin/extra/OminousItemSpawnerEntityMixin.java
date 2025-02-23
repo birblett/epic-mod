@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.OminousItemSpawnerEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
@@ -22,10 +23,10 @@ public abstract class OminousItemSpawnerEntityMixin implements OwnedProjectile {
     @Shadow
     public abstract ItemStack getItem();
 
-    MobEntity owner = null;
+    LivingEntity owner = null;
 
     @Override
-    public void setOwner(MobEntity e) {
+    public void setProjectileOwner(LivingEntity e) {
         this.owner = e;
     }
 
