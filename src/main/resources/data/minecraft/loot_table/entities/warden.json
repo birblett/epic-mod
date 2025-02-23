@@ -16,7 +16,7 @@
       "entries": [
         {
           "type": "minecraft:empty",
-          "weight": 8
+          "weight": 7
         },
         {
           "type": "minecraft:item",
@@ -44,6 +44,23 @@
                 "minecraft:stored_enchantments": {
                   "levels": {
                     "minecraft:realinfinity": 1
+                  },
+                  "show_in_tooltip": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:enchanted_book",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:stored_enchantments": {
+                  "levels": {
+                    "minecraft:hitscan": 1
                   },
                   "show_in_tooltip": true
                 }

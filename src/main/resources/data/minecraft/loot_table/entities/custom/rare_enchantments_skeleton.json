@@ -29,7 +29,7 @@
               "components": {
                 "minecraft:stored_enchantments": {
                   "levels": {
-                    "minecraft:focus": 1
+                    "minecraft:flak": 1
                   }
                 }
               }
@@ -45,7 +45,7 @@
               "components": {
                 "minecraft:stored_enchantments": {
                   "levels": {
-                    "minecraft:hitscan": 1
+                    "minecraft:focus": 1
                   }
                 }
               }
