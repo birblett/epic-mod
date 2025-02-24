@@ -1,6 +1,6 @@
 {
   "description": "Blasting",
-  "exclusive_set": "#minecraft:exclusive_set/riptide",
+  "exclusive_set": "#minecraft:exclusive_set/trident_unique",
   "supported_items": "#minecraft:enchantable/trident",
   "weight": 1,
   "max_level": 1,

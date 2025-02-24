@@ -1,7 +1,5 @@
 {
   "values": [
-    "minecraft:riptide",
-    "minecraft:slipstream",
-    "minecraft:blasting"
+    "#minecraft:trident_unique"
   ]
 }

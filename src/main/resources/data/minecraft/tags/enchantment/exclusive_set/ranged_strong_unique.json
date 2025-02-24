@@ -2,6 +2,7 @@
   "values": [
     "#minecraft:exclusive_set/ranged_unique",
     "minecraft:power",
-    "minecraft:quick_charge"
+    "minecraft:quick_charge",
+    "minecraft:hitscan"
   ]
 }
