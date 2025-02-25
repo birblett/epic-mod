@@ -4,6 +4,7 @@ import com.birblett.EpicMod;
 import com.birblett.helper.PlayerTicker;
 import com.birblett.helper.Util;
 import com.birblett.interfaces.ProjectileInterface;
+import com.birblett.interfaces.RangedWeapon;
 import com.birblett.interfaces.ServerPlayerEntityInterface;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -19,12 +20,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -33,12 +34,19 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @Mixin(RangedWeaponItem.class)
-public class RangedWeaponItemMixin {
+public abstract class RangedWeaponItemMixin implements RangedWeapon {
+
+    @Shadow protected abstract ProjectileEntity createArrowEntity(World world, LivingEntity shooter, ItemStack weaponStack, ItemStack projectileStack, boolean critical);
+
+    @Override
+    public ProjectileEntity createProjectile(World world, LivingEntity shooter, ItemStack weaponStack, ItemStack projectileStack, boolean critical) {
+        return this.createArrowEntity(world, shooter, weaponStack, projectileStack, critical);
+    }
 
     @WrapOperation(method = "shootAll", at = @At(value = "INVOKE", target = "net/minecraft/entity/projectile/ProjectileEntity.spawn(Lnet/minecraft/entity/projectile/ProjectileEntity;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/ItemStack;Ljava/util/function/Consumer;)Lnet/minecraft/entity/projectile/ProjectileEntity;"))
     private ProjectileEntity projectileEnchantmentEffects(ProjectileEntity entity, ServerWorld world, ItemStack projectileStack, Consumer<ProjectileEntity> beforeSpawn, Operation<ProjectileEntity> original, @Local(argsOnly = true, ordinal = 0) float speed, @Local(argsOnly = true, ordinal = 0) LivingEntity shooter, @Local(argsOnly = true) ItemStack stack) {
         original.call(entity, world, projectileStack, beforeSpawn);
-        Util.applyArrowModifications(shooter, stack, world, entity);
+        Util.applyProjectileMods(shooter, stack, projectileStack, world, entity);
         return entity;
     }
 

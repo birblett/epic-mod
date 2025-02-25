@@ -5,12 +5,12 @@ import com.birblett.helper.tracked_values.BurstFire;
 import com.birblett.helper.tracked_values.Homing;
 import com.birblett.interfaces.AbilityUser;
 import com.birblett.interfaces.ProjectileInterface;
+import com.birblett.interfaces.RangedWeapon;
 import com.birblett.interfaces.ServerPlayerEntityInterface;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -24,6 +24,7 @@ import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.LlamaSpitEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -279,28 +280,32 @@ public class Util {
     }
 
     private static boolean canApplyCrit(LivingEntity shooter, Entity e) {
-        return e instanceof PersistentProjectileEntity p && (p.isCritical() || !(shooter instanceof PlayerEntity));
+        return e instanceof PersistentProjectileEntity p && (p.isCritical() || !(shooter instanceof PlayerEntity)) || !(e instanceof ArrowEntity);
     }
 
     private static boolean canApplyCrit(LivingEntity shooter, boolean crit) {
-        return crit|| !(shooter instanceof PlayerEntity);
+        return crit || !(shooter instanceof PlayerEntity);
     }
 
-    public static void applyArrowModifications(LivingEntity shooter, ItemStack stack, ServerWorld world, ProjectileEntity entity) {
-        applyArrowModifications(shooter, stack, world, entity, false);
+    public static void applyProjectileMods(LivingEntity shooter, ItemStack stack, ItemStack projectileStack, ServerWorld world, ProjectileEntity entity) {
+        applyProjectileMods(shooter, stack, projectileStack, world, entity, false);
     }
 
-    public static void applyArrowModifications(LivingEntity shooter, ItemStack stack, ServerWorld world, ProjectileEntity entity, boolean isSummoned) {
-        if (!isSummoned && Util.hasEnchant(stack, EpicMod.ARROW_RAIN, world) && canApplyCrit(shooter, entity)) {
+    public static void applyProjectileMods(LivingEntity shooter, ItemStack stack, ItemStack projectileStack, ServerWorld world, ProjectileEntity entity, boolean isSummoned) {
+        boolean canCrit = canApplyCrit(shooter, entity);
+        if (!isSummoned && Util.hasEnchant(stack, EpicMod.ARROW_RAIN, world) && canCrit) {
             ((AbilityUser) entity).addAbilities(Ability.SUMMON_ARROWS, Ability.NO_KNOCKBACK);
+            if (!(entity instanceof PersistentProjectileEntity)) {
+                ((ProjectileInterface) entity).setItems(stack, projectileStack);
+            }
         }
         if (Util.hasEnchant(stack, EpicMod.HEAVY_SHOT, world) || Util.hasEnchant(stack, EpicMod.BURST_FIRE, world)) {
             ((AbilityUser) entity).addAbilities(Ability.IGNORE_IFRAMES);
         }
-        if (Util.hasEnchant(stack, EpicMod.THUNDERBOLT, world) && canApplyCrit(shooter, entity)) {
+        if (Util.hasEnchant(stack, EpicMod.THUNDERBOLT, world) && canCrit) {
             ((AbilityUser) entity).addAbilities(Ability.SUMMON_LIGHTNING);
         }
-        if (Util.hasEnchant(stack, EpicMod.AUTOAIM, world) && canApplyCrit(shooter, entity) && shooter instanceof ServerPlayerEntity) {
+        if (Util.hasEnchant(stack, EpicMod.AUTOAIM, world) && canCrit && shooter instanceof ServerPlayerEntity) {
             LivingEntity target = ((Homing) ((ServerPlayerEntityInterface) shooter).getTickers(PlayerTicker.ID.HOMING)).getTarget();
             if (target != null) {
                 Vec3d targetVec = target.getPos().add(0, target.getHeight() / 2, 0).subtract(entity.getPos());
@@ -309,8 +314,7 @@ public class Util {
                         .normalize().multiply(entity.getVelocity().length()));
             }
         }
-
-        if (Util.hasEnchant(stack, EpicMod.HITSCAN, shooter.getWorld()) && canApplyCrit(shooter, entity)) {
+        if (Util.hasEnchant(stack, EpicMod.HITSCAN, shooter.getWorld()) && canCrit) {
             entity.lastRenderX = entity.getX();
             entity.lastRenderY = entity.getY();
             entity.lastRenderZ = entity.getZ();
@@ -371,15 +375,20 @@ public class Util {
         }
         if (Util.hasEnchant(stack, EpicMod.FLAK, world) && Util.canApplyCrit(shooter, crit)) {
             Vec3d base = shooter.getRotationVector();
+            ItemStack s = projectiles.getFirst();
             for (int i = 0; i < 12; ++i) {
-                PersistentProjectileEntity arrow = ((ArrowItem) Items.ARROW).createArrow(world, Items.ARROW.getDefaultStack(), shooter, stack);
+                ProjectileEntity projectile = ((RangedWeapon) stack.getItem()).createProjectile(world, shooter, stack, s, crit);
                 Vec3d velocity = Util.applyDivergence(base, i < 6 ? 0.14 : 0.42).normalize();
-                arrow.setVelocity(velocity);
-                arrow.setCritical(true);
-                ((AbilityUser) arrow).addAbilities(Ability.DISCARD_AFTER, Ability.IGNORE_IFRAMES, Ability.NO_KNOCKBACK);
-                Util.applyArrowModifications(shooter, stack, world, arrow);
-                Util.rotateEntity(arrow, velocity);
-                world.spawnEntity(arrow);
+                projectile.setVelocity(velocity.multiply(projectile.getRandom().nextBetween(85, 115) / 100.0));
+                if (projectile instanceof PersistentProjectileEntity p) {
+                    p.setCritical(true);
+                } else {
+                    ((ProjectileInterface) projectile).setLife(7);
+                }
+                ((AbilityUser) projectile).addAbilities(Ability.DISCARD_AFTER, Ability.IGNORE_IFRAMES, Ability.NO_KNOCKBACK);
+                Util.applyProjectileMods(shooter, stack, s, world, projectile);
+                Util.rotateEntity(projectile, velocity);
+                world.spawnEntity(projectile);
             }
         }
     }

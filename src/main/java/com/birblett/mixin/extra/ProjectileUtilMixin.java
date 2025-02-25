@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ProjectileUtilMixin {
 
     @ModifyExpressionValue(method = "createArrowProjectile", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ArrowItem;createArrow(Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/projectile/PersistentProjectileEntity;"))
-    private static PersistentProjectileEntity applyEnchants(PersistentProjectileEntity original, @Local(argsOnly = true) LivingEntity shooter, @Local(ordinal = 1, argsOnly = true) ItemStack stack) {
+    private static PersistentProjectileEntity applyEnchants(PersistentProjectileEntity original, @Local(argsOnly = true) LivingEntity shooter, @Local(ordinal = 0, argsOnly = true) ItemStack projectileStack, @Local(ordinal = 1, argsOnly = true) ItemStack stack) {
         if (stack != null && shooter.getWorld() instanceof ServerWorld world) {
-            Util.applyArrowModifications(shooter, stack, world, original);
+            Util.applyProjectileMods(shooter, stack, projectileStack, world, original);
         }
         return original;
     }

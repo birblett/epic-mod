@@ -39,6 +39,13 @@ public class EntityMixin implements AbilityUser {
     }
 
     @Override
+    public void removeAbility(Ability a) {
+        if (this.abilities != null) {
+            this.abilities.remove(a);
+        }
+    }
+
+    @Override
     public boolean hasAbility(Ability ability) {
         return this.abilities != null && this.abilities.contains(ability);
     }

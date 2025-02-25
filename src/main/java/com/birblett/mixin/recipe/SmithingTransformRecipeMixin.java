@@ -56,7 +56,7 @@ public class SmithingTransformRecipeMixin {
             }
             if (stack.get(DataComponentTypes.EQUIPPABLE) != null) {
                 EquipmentSlot slot = smithingRecipeInput.base().get(DataComponentTypes.EQUIPPABLE).slot();
-                Identifier id = Identifier.of("augment_" + slot);
+                Identifier id = Identifier.of("augment_" + slot.asString().toLowerCase());
                 List<Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> attributeList = switch(nbt.getInt("Augment")) {
                     default -> List.of(getAttr(stack, ARMOR, id, 2, ADD_VALUE),
                             getAttr(stack, ARMOR_TOUGHNESS, id, 0.5, ADD_VALUE));
@@ -137,6 +137,7 @@ public class SmithingTransformRecipeMixin {
                 stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, builder.build());
             }
         }
+        EpicMod.LOGGER.info("{}", stack);
     }
 
     private static List<Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> getSingle(ItemStack stack, RegistryEntry<EntityAttribute> e, Identifier id, double value, EntityAttributeModifier.Operation op) {

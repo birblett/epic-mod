@@ -74,8 +74,8 @@ public abstract class ArmorStandEntityMixin extends LivingEntity implements Abil
                     d += p.getRight();
                 }
                 double totalTime = (end - start) / 20.0;
-                this.setCustomName(Text.of(String.format("Past %.2fs: DPS: ", totalTime) + String.format("%.3f", d / totalTime) +
-                        " - Total damage: " + String.format("%.3f", d)));
+                this.setCustomName(Text.of(String.format("Past %.2fs: DMG: %.2f - DPS: %.2f - DPH: %.2f", totalTime, d, d / totalTime, d /
+                        this.lastDamageQueue.size())));
                 this.lastDamageQueue.clear();
                 --this.ticker;
             }
@@ -96,10 +96,16 @@ public abstract class ArmorStandEntityMixin extends LivingEntity implements Abil
         }
     }
 
+    @Override
+    public void takeKnockback(double strength, double x, double z) {
+        if (!this.hasAbility(Ability.DUMMY)) {
+            super.takeKnockback(strength, x, z);
+        }
+    }
+
     @Unique
     private boolean dummyDamage(ServerWorld world, DamageSource source, float amount) {
-        if (this.isInvulnerableTo(world, source) || this.isDead() || source.isIn(DamageTypeTags.IS_FIRE) &&
-                this.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)) {
+        if (this.isDead() || source.isIn(DamageTypeTags.IS_FIRE) && this.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)) {
             return false;
         }
         if (source.isOf(DamageTypes.OUT_OF_WORLD) || source.getAttacker() instanceof LivingEntity e && ((AbilityUser) e)

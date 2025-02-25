@@ -1,6 +1,8 @@
 package com.birblett.mixin.base;
 
+import com.birblett.EpicMod;
 import com.birblett.helper.Ability;
+import com.birblett.helper.tracked_values.ArrowRain;
 import com.birblett.interfaces.AbilityUser;
 import com.birblett.interfaces.OwnedProjectile;
 import com.birblett.interfaces.ProjectileInterface;
@@ -13,6 +15,7 @@ import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
@@ -39,10 +42,39 @@ public abstract class ProjectileEntityMixin implements ProjectileInterface, Abil
 
     @Unique
     private Double life = null;
+    @Unique
+    private Double targetY = null;
+    @Unique
+    private ItemStack weaponStack;
+    @Unique
+    private ItemStack projectileStack;
 
     @Override
     public void setLife(double life) {
         this.life = life;
+    }
+
+    @Override
+    public void setTargetY(Double i) {
+        this.targetY = i;
+    }
+
+    @Override
+    public void setItems(ItemStack weaponStack, ItemStack projectileStack) {
+        this.weaponStack = weaponStack.copy();
+        this.projectileStack = projectileStack.copy();
+    }
+
+    @Override
+    public void tryCreateArrowRain(Vec3d pos) {
+        if (this.projectileStack == null || this.weaponStack == null) {
+            return;
+        }
+        ProjectileEntity p = ((ProjectileEntity) (Object) this);
+        if (this.hasAbility(Ability.SUMMON_ARROWS) && p.getOwner() instanceof LivingEntity owner && p.getWorld() instanceof ServerWorld
+                world) {
+            new ArrowRain(owner, world, pos, this.weaponStack, this.projectileStack);
+        }
     }
 
     @Inject(method = "onBlockHit", at = @At("HEAD"))
@@ -70,9 +102,18 @@ public abstract class ProjectileEntityMixin implements ProjectileInterface, Abil
         }
     }
 
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void removeNoClip(CallbackInfo ci) {
+        ProjectileEntity self = (ProjectileEntity) (Object) this;
+        if (this.targetY != null && self.getY() < this.targetY) {
+            this.removeAbility(Ability.NOCLIP);
+        }
+    }
+
     @Inject(method = "onEntityHit", at = @At("HEAD"), cancellable = true)
     private void onEntityHitEvents(EntityHitResult entityHitResult, CallbackInfo ci) {
         Entity et = entityHitResult.getEntity();
+        this.tryCreateArrowRain(entityHitResult.getEntity().getPos().add(0, entityHitResult.getEntity().getHeight() / 2, 0));
         if (this.hasAbility(Ability.SUMMON_LIGHTNING) && et.getWorld() instanceof ServerWorld world) {
             ProjectileEntity p = ((ProjectileEntity) (Object) this);
             summonLightning(world, p.getPos(), p);
@@ -87,13 +128,11 @@ public abstract class ProjectileEntityMixin implements ProjectileInterface, Abil
                 e.owner.hurtTime = 0;
             }
         }
-        if (this.hasAbility(Ability.SUMMON_ARROWS)) {
-
-        }
     }
 
     @Inject(method = "onBlockHit", at = @At("HEAD"), cancellable = true)
     private void onBlockHitEvents(BlockHitResult blockHitResult, CallbackInfo ci) {
+        this.tryCreateArrowRain(blockHitResult.getPos());
         ProjectileEntity p = (ProjectileEntity) (Object) this;
         if (this.hasAbility(Ability.SUMMON_LIGHTNING) && p.getWorld() instanceof ServerWorld world) {
             summonLightning(world, blockHitResult.getPos(), p);
