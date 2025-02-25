@@ -1,12 +1,6 @@
 {
   "description": "Adaptability",
-  "exclusive_set": [
-    "minecraft:burst_fire",
-    "minecraft:power",
-    "minecraft:focus",
-    "minecraft:thunderbolt",
-    "minecraft:flak"
-  ],
+  "exclusive_set": "#minecraft:exclusive_set/ranged_strong_unique",
   "supported_items":  "#minecraft:enchantable/bow_and_crossbow",
   "weight": 1,
   "max_level": 1,

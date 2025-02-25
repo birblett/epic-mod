@@ -17,6 +17,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -42,7 +43,9 @@ public class CustomItems {
     private static final int LUDFRU_ID = 4;
     private static final int MINER_ID = 5;
     private static final int GUNNER_ID = 6;
+
     private static final int SKELATOM_ID = 7;
+    private static final int CREATURE_ID = 8;
 
     private static final EntityAttributeModifier THUNDER_TOME_SPEED_MODIFIER = new EntityAttributeModifier(Identifier
             .of("thunder_tome"), -0.6, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
@@ -149,7 +152,7 @@ public class CustomItems {
     public static final String DRUNKARD_MOONSHINE = withCustomModel("potion[custom_name='{\"italic\":false,\"text\":\"Moonshine\"}',potion_contents={custom_color:11662047,custom_effects:[{id:\"minecraft:nausea\",amplifier:0,duration:7200,show_particles:0b},{id:\"minecraft:blindness\",amplifier:0,duration:7200},{id:\"minecraft:poison\",amplifier:0,duration:7200}]},max_stack_size=64]", "moonshine");
     public static final String DRUNKARD_QMARKS = withCustomModel("potion[custom_name='{\"italic\":false,\"text\":\"???\"}',potion_contents={custom_color:16763904},max_stack_size=64]", "qmarks");
     public static final String DRUNKARD_RED_WINE = withCustomModel("potion[custom_name='{\"italic\":false,\"text\":\"Red Wine\"}',potion_contents={custom_color:6690853,custom_effects:[{id:\"minecraft:nausea\",amplifier:0,duration:1200},{id:\"minecraft:unluck\",amplifier:0,duration:1200}]},max_stack_size=64]", "red_wine");
-    public static final String DRUNKARD_RUM = withCustomModel("potion[custom_name='{\"italic\":false,\"text\":\"???\"}',potion_contents={custom_color:8733212,custom_effects:[{id:\"minecraft:nausea\",amplifier:0,duration:4800}]},max_stack_size=64", "rum");
+    public static final String DRUNKARD_RUM = withCustomModel("potion[custom_name='{\"italic\":false,\"text\":\"Rum\"}',potion_contents={custom_color:8733212,custom_effects:[{id:\"minecraft:nausea\",amplifier:0,duration:4800}]},max_stack_size=64", "rum");
 
     public static final String DULLAHAN_KNIFE = withCustomModel(withEvent("iron_sword[enchantments={levels:{\"minecraft:looting\":4,\"minecraft:sharpness\":6}},custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Occultic Dagger\"}']", DULLAHAN_ID, USE_EVENTS, (user, stack, hand, world) -> {
         if (!user.hasStatusEffect(StatusEffects.SPEED) || !user.hasStatusEffect(StatusEffects.STRENGTH) ||
@@ -230,12 +233,25 @@ public class CustomItems {
     public static final String GIANT_SKELETON_BOW = "bow[enchantments={levels:{\"minecraft:power\":4}}]";
     public static final String GIANT_CHESTPLATE = withCustomModel("iron_chestplate[trim={material:\"minecraft:netherite\",pattern:\"minecraft:wayfinder\",show_in_tooltip:false},attribute_modifiers=[{id:\"chest_armor\",type:\"armor\",amount:7,operation:\"add_value\",slot:\"chest\"},{id:\"chest_armor_toughness\",type:\"armor_toughness\",amount:5,operation:\"add_value\",slot:\"chest\"},{id:\"chest_scale\",type:\"scale\",amount:0.5,operation:\"add_multiplied_total\",slot:\"chest\"},{id:\"chest_block_interaction_range\",type:\"block_interaction_range\",amount:0.5,operation:\"add_value\",slot:\"chest\"},{id:\"chest_entity_interaction_range\",type:\"entity_interaction_range\",amount:0.5,operation:\"add_value\",slot:\"chest\"}],custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Giant\\'s Chestplate\"}',max_damage=700]", "giant_chestplate");
 
+    public static final String CREATURE_CROSSBOW = withCustomModel("crossbow[enchantments={levels:{\"minecraft:quick_charge\":6,\"minecraft:heavy_shot\":2,\"minecraft:piercing\":5,\"minecraft:flak\":1}},custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Infinibow\"}']", "infinibow");
+    public static final String CREATURE_CROSSBOW_DROPPED = withCustomModel("crossbow[enchantments={levels:{\"minecraft:quick_charge\":3,\"minecraft:multishot\":2,\"minecraft:piercing\":4}},custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Infinibow\"}']", "infinibow");
+    public static final String CREATURE_PANT = withCustomModel(withEvent("leather_leggings[custom_name='{\"color\":\"#81B337\",\"italic\":false,\"text\":\"Fart Pants\"}',dyed_color=8500023,unbreakable={}]", CREATURE_ID, TICK_EVENTS, (player, stack, held, world) -> {
+        if (player.getEquippedStack(EquipmentSlot.LEGS) == stack) {
+            Vec3d p = player.getPos().add(0, player.getHeight() * 0.4, 0).add(Vec3d.fromPolar(player.getPitch(),
+                    player.getBodyYaw()).normalize().multiply(-0.3));
+            world.spawnParticles(new DustParticleEffect(8500023, 1), p.x, p.y, p.z, 18, 0, 0, 0, 1.3);
+            return new EventResult(1, null);
+        }
+        return new EventResult(0, null);
+    }), "fart_pants");
+
     public static final String DAEDALUS_HELMET = withCustomModel("diamond_helmet[custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Scoped Helmet\"}',max_damage=600,enchantments={levels:{\"minecraft:sniper\":1}}]", "scoped_helmet");
     public static final String DAEDALUS_STORMBOW = withCustomModel("bow[enchantments={levels:{\"minecraft:arrow_rain\":1,\"minecraft:flak\":1}}]", "daedalus_stormbow");
     public static final String DAEDALUS_STORMBOW_DROPPED = withCustomModel("bow[custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Daedalus Stormbow\"}',enchantments={levels:{\"minecraft:arrow_rain\":1}},unbreakable={}]", "daedalus_stormbow");
     public static final String DAEDALUS_BOOTS = withCustomModel("chainmail_boots[trim={material:\"minecraft:redstone\",pattern:\"minecraft:raiser\",show_in_tooltip:false},enchantments={levels:{\"minecraft:rider\":1,\"minecraft:blink\":1,\"minecraft:windstep\":1}},custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Daedalus Boots\"}',attribute_modifiers=[{id:\"feet_armor\",type:\"armor\",amount:1,operation:\"add_value\",slot:\"feet\"}],max_damage=4000]", "daedalus_boots");
 
-    public static final String POTIONEER_CROSSBOW = withCustomModel("crossbow[enchantments={levels:{\"minecraft:quick_charge\":1,\"minecraft:multishot\":1,\"minecraft:adaptability\":1}},custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Adaptabow\"}',max_damage=600]", "adaptabow");
+    public static final String POTIONEER_CROSSBOW = withCustomModel("crossbow[enchantments={levels:{\"minecraft:quick_charge\":1,\"minecraft:adaptability\":1}},custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Adaptabow\"}',max_damage=600]", "adaptabow");
+    public static final String POTIONEER_CROSSBOW_DROPPED = withCustomModel("crossbow[enchantments={levels:{\"minecraft:quick_charge\":1,\"minecraft:multishot\":1,\"minecraft:adaptability\":1}},custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Adaptabow\"}',max_damage=600]", "adaptabow");
     public static final String POTIONEER_POTION = "splash_potion[potion_contents={potion:\"minecraft:strong_harming\"}]";
     public static final String POTIONEER_CHESTPLATE = withCustomModel("chainmail_chestplate[glider={},max_damage=120,custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Broken Floaty Plate\"}',attribute_modifiers=[{id:\"chest_max_health\",type:\"max_health\",amount:2,operation:\"add_value\",slot:\"chest\"},{id:\"chest_armor\",type:\"armor\",amount:3,operation:\"add_value\",slot:\"chest\"},{id:\"chest_armor_toughness\",type:\"armor_toughness\",amount:2,operation:\"add_value\",slot:\"chest\"}],enchantments={levels:{\"minecraft:magic_guard\":1}}]", "broken_floaty_plate");
 
@@ -262,8 +278,8 @@ public class CustomItems {
     public static final String THUNDER_SKELETON_CHESTPLATE = withCustomModel("golden_chestplate[custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Perfection\"}',max_damage=80,attribute_modifiers=[{id:\"chest_armor\",type:\"armor\",amount:20,operation:\"add_value\",slot:\"chest\"},{id:\"chest_armor_toughness\",type:\"armor_toughness\",amount:20,operation:\"add_value\",slot:\"chest\"}]]", "perfection");
 
     public static final String UNDEAD_PILLAR_BANNER = "white_banner[rarity=\"uncommon\",item_name='{\"translate\":\"block.minecraft.ominous_banner\"}',hide_additional_tooltip={},banner_patterns=[{pattern:\"minecraft:rhombus\",color:\"cyan\"},{pattern:\"minecraft:stripe_bottom\",color:\"light_gray\"},{pattern:\"minecraft:stripe_center\",color:\"gray\"},{pattern:\"minecraft:border\",color:\"light_gray\"},{pattern:\"minecraft:stripe_middle\",color:\"black\"},{pattern:\"minecraft:half_horizontal\",color:\"light_gray\"},{pattern:\"minecraft:circle\",color:\"light_gray\"},{pattern:\"minecraft:border\",color:\"black\"}]]";
-    public static final String UNDEAD_PILLAGER_CROSSBOW = "crossbow[enchantments={levels:{\"minecraft:quick_charge\":4,\"minecraft:arrow_rain\":1}}]";
-    public static final String UNDEAD_PILLAGER_CROSSBOW_LOOT = withCustomModel("crossbow[enchantments={levels:{\"minecraft:arrow_rain\":1,\"minecraft:flame\":1}},custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Hellstorm\"}']", "hellstorm");
+    public static final String UNDEAD_PILLAGER_CROSSBOW = "crossbow[enchantments={levels:{\"minecraft:quick_charge\":4,\"minecraft:arrow_rain\":1,\"minecraft:flak\":1,\"minecraft:flame\":1}}]";
+    public static final String UNDEAD_PILLAGER_CROSSBOW_DROPPED = withCustomModel("crossbow[enchantments={levels:{\"minecraft:arrow_rain\":1,\"minecraft:flame\":1}},custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Hellstorm\"}']", "hellstorm");
     public static final String UNDEAD_PILLAGER_VEST = withCustomModel("leather_chestplate[enchantments={levels:{\"minecraft:projectile_protection\":8}},dyed_color=0,trim={material:\"minecraft:diamond\",pattern:\"minecraft:wild\",show_in_tooltip:false},custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Pillager Vest\"}',attribute_modifiers=[{id:\"chest_armor\",type:\"armor\",amount:6,operation:\"add_value\",slot:\"chest\"},{id:\"chest_toughness\",type:\"armor_toughness\",amount:4,operation:\"add_value\",slot:\"chest\"},{id:\"chest_knockback_resistance\",type:\"knockback_resistance\",amount:0.4,operation:\"add_value\",slot:\"chest\"},{id:\"chest_movement_speed\",type:\"movement_speed\",amount:0.15,operation:\"add_multiplied_base\",slot:\"chest\"}],max_damage=500]", "pillager_vest");
 
 }
