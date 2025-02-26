@@ -14,10 +14,7 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.SkeletonEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.mob.ZombieHorseEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -265,7 +262,7 @@ public class SpawnPools {
     private static final TriConsumer<ZombieEntity, ServerWorld, Modifier<ZombieEntity>> SET_NOT_BABY = (z, w, m) -> z.setBaby(false);
     private static final TriConsumer<ZombieEntity, ServerWorld, Modifier<ZombieEntity>> UPDATE_GOALS = (z, w, m) -> ((AbilityUser) z).updateGoals();
 
-    public static void zombiePoolInit(ServerWorld serverWorld) {
+    public static void zombiePoolInit() {
         ZOMBIES.resetEntries();
         ZOMBIES.addModifier(50, new Modifier<ZombieEntity>().setName("Drunkard")
                 .setStack(HEAD, Items.IRON_HELMET)
@@ -489,7 +486,7 @@ public class SpawnPools {
 
     public static final WeightedRandomPool<Modifier<SkeletonEntity>> SKELETONS = new WeightedRandomPool<>();
 
-    public static void skeletonPoolInit(ServerWorld serverWorld) {
+    public static void skeletonPoolInit() {
         SKELETONS.resetEntries();
         SKELETONS.addModifier(40, new Modifier<SkeletonEntity>().setName("Giant Skeleton")
                 .setStack(MAINHAND, GIANT_SKELETON_BOW)
@@ -498,7 +495,7 @@ public class SpawnPools {
                 .setStack(LEGS, Items.IRON_LEGGINGS)
                 .setStack(FEET, Items.IRON_BOOTS)
                 .setMaxHealth(35)
-                .setAbilities(IGNORE_FIRE, IGNORE_SUFFOCATION));
+                .setAbilities(IGNORE_FIRE, IGNORE_SUFFOCATION, SKELETON_IGNORE_SNOW));
         SKELETONS.addModifier(40, new Modifier<SkeletonEntity>().setName("Skelepant")
                 .setStack(MAINHAND, SKELEPANT_HANDPANT).setDropChance(0.2f)
                 .setStack(OFFHAND, SKELEPANT_OFFHANDPANT).setDropChance(0.08f)
@@ -507,13 +504,13 @@ public class SpawnPools {
                 .modAttribute(MOVEMENT_SPEED, MUL, 1.3)
                 .baseAttribute(WATER_MOVEMENT_EFFICIENCY, 4)
                 .baseAttribute(SCALE, 0.75)
-                .setAbilities(IGNORE_FIRE));
+                .setAbilities(IGNORE_FIRE, SKELETON_IGNORE_SNOW));
         SKELETONS.addModifier(40, new Modifier<SkeletonEntity>().setName("Strange Skeleton")
                 .setStack(MAINHAND, STRANGE_SKELETON_CROSSBOW).setDropChance(0.1f)
                 .setStack(HEAD, STRANGE_SKELETON_HAT).setDropChance(0.03f)
                 .setStack(FEET, Items.IRON_BOOTS)
                 .setMaxHealth(35)
-                .setAbilities(IGNORE_FIRE));
+                .setAbilities(IGNORE_FIRE, SKELETON_IGNORE_SNOW));
         SKELETONS.addModifier(20, new Modifier<SkeletonEntity>().setName("Creature")
                 .setStack(HEAD, Items.WITHER_SKELETON_SKULL)
                 .setStack(MAINHAND, CREATURE_CROSSBOW)
@@ -522,8 +519,8 @@ public class SpawnPools {
                 .setMaxHealth(160)
                 .baseAttribute(ARMOR, 4)
                 .baseAttribute(ARMOR_TOUGHNESS, 4)
-                .setAbilities(IGNORE_FIRE, IGNORE_WATER, ELITE)
-                .setLootTable("entities/custom/elite_skeleton_pool"));
+                .setAbilities(IGNORE_FIRE, IGNORE_WATER, SKELETON_IGNORE_SNOW, ELITE)
+                .setLootTable("entities/custom/skeleton_elite"));
         SKELETONS.addModifier(20, new Modifier<SkeletonEntity>().setName("Daedalus")
                 .setStack(HEAD, DAEDALUS_HELMET).setDropChance(0.12f)
                 .setStack(MAINHAND, DAEDALUS_STORMBOW)
@@ -534,8 +531,8 @@ public class SpawnPools {
                 .baseAttribute(ARMOR_TOUGHNESS, 4)
                 .baseAttribute(SCALE, 0.55)
                 .modAttribute(MOVEMENT_SPEED, MUL,1.1)
-                .setAbilities(IGNORE_FIRE, IGNORE_WATER, ELITE)
-                .setLootTable("entities/custom/elite_skeleton_pool"));
+                .setAbilities(IGNORE_FIRE, IGNORE_WATER, SKELETON_IGNORE_SNOW, ELITE)
+                .setLootTable("entities/custom/skeleton_elite"));
         SKELETONS.addModifier(20, new Modifier<SkeletonEntity>().setName("Potioneer")
                 .setStack(HEAD, Items.TURTLE_HELMET)
                 .setStack(MAINHAND, POTIONEER_CROSSBOW).setDropChance(0.12f)
@@ -547,8 +544,8 @@ public class SpawnPools {
                 .baseAttribute(ARMOR_TOUGHNESS, 4)
                 .baseAttribute(SCALE, 0.5)
                 .modAttribute(MOVEMENT_SPEED, MUL,1.2)
-                .setAbilities(IGNORE_FIRE, ELITE)
-                .setLootTable("entities/custom/elite_skeleton_pool"));
+                .setAbilities(IGNORE_FIRE, SKELETON_IGNORE_SNOW, ELITE)
+                .setLootTable("entities/custom/skeleton_elite"));
         SKELETONS.addModifier(20, new Modifier<SkeletonEntity>().setName("Skelatom")
                 .setStack(MAINHAND, SKELATOM_BOW).setDropChance(0.15f)
                 .setStack(OFFHAND, SKELATOM_BONE_ZONE).setDropChance(0.15f)
@@ -557,8 +554,8 @@ public class SpawnPools {
                 .modAttribute(MOVEMENT_SPEED, MUL, 2.5)
                 .modAttribute(STEP_HEIGHT, ADD, 0.5)
                 .baseAttribute(SCALE, 0.2)
-                .setAbilities(IGNORE_FIRE, ELITE)
-                .setLootTable("entities/custom/elite_skeleton_pool"));
+                .setAbilities(IGNORE_FIRE, SKELETON_IGNORE_SNOW, ELITE)
+                .setLootTable("entities/custom/skeleton_elite"));
         SKELETONS.addModifier(20, new Modifier<SkeletonEntity>().setName("Thunderbone")
                 .setStack(MAINHAND, THUNDER_SKELETON_BOW).setDropChance(0.04f)
                 .setStack(HEAD, Items.RAW_COPPER_BLOCK).setDropChance(1)
@@ -567,8 +564,8 @@ public class SpawnPools {
                 .setMaxHealth(80)
                 .baseAttribute(ARMOR, -10)
                 .baseAttribute(ARMOR_TOUGHNESS, -10)
-                .setAbilities(IGNORE_FIRE, IGNORE_LIGHTNING, ELITE)
-                .setLootTable("entities/custom/elite_skeleton_pool"));
+                .setAbilities(IGNORE_FIRE, IGNORE_LIGHTNING, SKELETON_IGNORE_SNOW, ELITE)
+                .setLootTable("entities/custom/skeleton_elite"));
         SKELETONS.addModifier(20, new Modifier<SkeletonEntity>().setName("Undead Pillager")
                 .setStack(HEAD, UNDEAD_PILLAR_BANNER).setDropChance(1)
                 .setStack(MAINHAND, UNDEAD_PILLAGER_CROSSBOW)
@@ -578,8 +575,8 @@ public class SpawnPools {
                 .baseAttribute(ARMOR, 4)
                 .baseAttribute(ARMOR_TOUGHNESS, 4)
                 .baseAttribute(SCALE, 0.75)
-                .setAbilities(IGNORE_FIRE, ELITE)
-                .setLootTable("entities/custom/elite_skeleton_pool"));
+                .setAbilities(IGNORE_FIRE, SKELETON_IGNORE_SNOW, ELITE)
+                .setLootTable("entities/custom/skeleton_elite"));
         SKELETONS.addModifier(12500 - 240, noOp());
         EpicMod.LOGGER.info("Loaded skeleton spawn pools: {}", SKELETONS);
     }

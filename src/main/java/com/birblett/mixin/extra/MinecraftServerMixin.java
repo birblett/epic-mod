@@ -14,9 +14,8 @@ public class MinecraftServerMixin {
 
     @Inject(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;createMetadata()Lnet/minecraft/server/ServerMetadata;"))
     private void onServerLoad(CallbackInfo ci) {
-        ServerWorld ow = ((MinecraftServer) (Object) this).getWorld(World.OVERWORLD);
-        SpawnPools.zombiePoolInit(ow);
-        SpawnPools.skeletonPoolInit(ow);
+        SpawnPools.zombiePoolInit();
+        SpawnPools.skeletonPoolInit();
     }
     
 }

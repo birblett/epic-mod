@@ -246,7 +246,7 @@ public class CustomItems {
     }), "fart_pants");
 
     public static final String DAEDALUS_HELMET = withCustomModel("diamond_helmet[custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Scoped Helmet\"}',max_damage=600,enchantments={levels:{\"minecraft:sniper\":1}}]", "scoped_helmet");
-    public static final String DAEDALUS_STORMBOW = withCustomModel("bow[enchantments={levels:{\"minecraft:arrow_rain\":1,\"minecraft:flak\":1}}]", "daedalus_stormbow");
+    public static final String DAEDALUS_STORMBOW = withCustomModel("bow[enchantments={levels:{\"minecraft:arrow_rain\":1,\"minecraft:multishot\":2}}]", "daedalus_stormbow");
     public static final String DAEDALUS_STORMBOW_DROPPED = withCustomModel("bow[custom_name='{\"color\":\"dark_red\",\"italic\":false,\"text\":\"Daedalus Stormbow\"}',enchantments={levels:{\"minecraft:arrow_rain\":1}},unbreakable={}]", "daedalus_stormbow");
     public static final String DAEDALUS_BOOTS = withCustomModel("chainmail_boots[trim={material:\"minecraft:redstone\",pattern:\"minecraft:raiser\",show_in_tooltip:false},enchantments={levels:{\"minecraft:rider\":1,\"minecraft:blink\":1,\"minecraft:windstep\":1}},custom_name='{\"color\":\"aqua\",\"italic\":false,\"text\":\"Daedalus Boots\"}',attribute_modifiers=[{id:\"feet_armor\",type:\"armor\",amount:1,operation:\"add_value\",slot:\"feet\"}],max_damage=4000]", "daedalus_boots");
 

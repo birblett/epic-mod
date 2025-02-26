@@ -6,7 +6,6 @@ import com.birblett.helper.Util;
 import com.birblett.interfaces.ServerPlayerEntityInterface;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.Leashable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -46,7 +45,6 @@ public class TridentItemMixin {
 
     @ModifyExpressionValue(method = "onStoppedUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/ProjectileEntity;spawnWithVelocity(Lnet/minecraft/entity/projectile/ProjectileEntity$ProjectileCreator;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;FFF)Lnet/minecraft/entity/projectile/ProjectileEntity;"))
     private ProjectileEntity bup(ProjectileEntity original, @Local(argsOnly = true) LivingEntity user) {
-        ((Leashable) original).attachLeash(user, true);
         return original;
     }
 

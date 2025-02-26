@@ -17,7 +17,6 @@
                 },
                 "minecraft:custom_model_data": {
                   "strings": [
-                    "netherite_augment_shard",
                     "resistant_augment"
                   ]
                 }
@@ -53,7 +52,6 @@
                 },
                 "minecraft:custom_model_data": {
                   "strings": [
-                    "netherite_augment_shard",
                     "strength_augment"
                   ]
                 }
@@ -89,7 +87,6 @@
                 },
                 "minecraft:custom_model_data": {
                   "strings": [
-                    "netherite_augment_shard",
                     "vigor_augment"
                   ]
                 }
@@ -125,7 +122,6 @@
                 },
                 "minecraft:custom_model_data": {
                   "strings": [
-                    "netherite_augment_shard",
                     "reach_augment"
                   ]
                 }
@@ -161,7 +157,6 @@
                 },
                 "minecraft:custom_model_data": {
                   "strings": [
-                    "netherite_augment_shard",
                     "swift_augment"
                   ]
                 }
@@ -197,7 +192,6 @@
                 },
                 "minecraft:custom_model_data": {
                   "strings": [
-                    "netherite_augment_shard",
                     "jump_augment"
                   ]
                 }
@@ -233,7 +227,6 @@
                 },
                 "minecraft:custom_model_data": {
                   "strings": [
-                    "netherite_augment_shard",
                     "heart_augment"
                   ]
                 }
@@ -269,7 +262,6 @@
                 },
                 "minecraft:custom_model_data": {
                   "strings": [
-                    "netherite_augment_shard",
                     "efficient_augment"
                   ]
                 }

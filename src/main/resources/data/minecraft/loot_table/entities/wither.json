@@ -7,11 +7,10 @@
       "entries": [
         {
           "type": "minecraft:empty",
-          "weight": 16
+          "weight": 8
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
           "name": "minecraft:enchanted_book",
           "functions": [
             {
@@ -20,23 +19,6 @@
                 "minecraft:stored_enchantments": {
                   "levels": {
                     "minecraft:flak": 1
-                  }
-                }
-              }
-            }
-          ],
-          "conditions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:enchanted_book",
-          "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "minecraft:stored_enchantments": {
-                  "levels": {
-                    "minecraft:withering": 1
                   }
                 }
               }

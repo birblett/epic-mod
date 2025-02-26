@@ -34,6 +34,7 @@ public enum Ability {
     NOCLIP,
     OWNED,
     PHYSICS,
+    SKELETON_IGNORE_SNOW,
     SUMMON_ARROWS,
     SUMMON_LIGHTNING,
     ZOMBIE_IGNORE_WATER;
