@@ -14,12 +14,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.PlayerInput;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,6 +31,10 @@ import java.util.LinkedHashMap;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity implements ServerPlayerEntityInterface {
+
+    @Shadow public ServerPlayNetworkHandler networkHandler;
+
+    @Shadow public abstract void tick();
 
     @Unique private InputManager last = new InputManager(false, false, false, false, false, false, false);
     @Unique private final GunHoe.ReloadManager reloadManager = new GunHoe.ReloadManager((ServerPlayerEntity) (Object) this);
@@ -59,9 +65,15 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
         this.attributeManager.addAttribute(key, modifier, ticks);
     }
 
+    @Override
+    public boolean isBlocking() {
+        return this.tickers.get(PlayerTicker.ID.ASSAULT).get() != 7 || super.isBlocking();
+    }
+
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(MinecraftServer server, ServerWorld world, GameProfile profile, SyncedClientOptions clientOptions, CallbackInfo ci) {
         ServerPlayerEntity instance = (ServerPlayerEntity) (Object) this;
+        this.tickers.put(PlayerTicker.ID.ASSAULT, new Assault(instance, this.attributeManager));
         this.tickers.put(PlayerTicker.ID.BLINK, new Blink(instance, this.attributeManager));
         this.tickers.put(PlayerTicker.ID.BURST_FIRE, new BurstFire(instance, this.attributeManager));
         this.tickers.put(PlayerTicker.ID.CATALYST, new Catalyst(instance, this.attributeManager));

@@ -1,6 +1,7 @@
 {
   "description": "Stalwart",
   "supported_items": "#minecraft:enchantable/shield",
+  "exclusive_set": "#minecraft:exclusive_set/shield_unique",
   "weight": 1,
   "max_level": 2,
   "min_cost": {

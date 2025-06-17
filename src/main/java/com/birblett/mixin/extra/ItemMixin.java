@@ -1,5 +1,6 @@
 package com.birblett.mixin.extra;
 
+import com.birblett.EpicMod;
 import com.birblett.helper.CustomItems;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
@@ -27,7 +28,8 @@ public class ItemMixin {
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void useEvents(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack stack = user.getStackInHand(hand);
-        if (world instanceof ServerWorld serverWorld) {
+        if (user instanceof ServerPlayerEntity serverPlayerEntity) {
+            ServerWorld serverWorld = serverPlayerEntity.getServerWorld();
             if (stack.get(DataComponentTypes.CUSTOM_DATA) instanceof NbtComponent n) {
                 NbtCompound nbt = n.getNbt();
                 if (nbt.contains(CustomItems.USE)) {
@@ -75,7 +77,7 @@ public class ItemMixin {
                     int key = nbt.getInt(CustomItems.USE);
                     CustomItems.EventResult result = CustomItems.USE_TICK_EVENTS.getOrDefault(key, (p, i, h, w) ->
                             new CustomItems.EventResult(0, null)).apply(user, stack, user.getStackInHand(Hand.MAIN_HAND) ==
-                                    stack ? Hand.MAIN_HAND : Hand.OFF_HAND, user.getServerWorld());
+                            stack ? Hand.MAIN_HAND : Hand.OFF_HAND, user.getServerWorld());
                     if (result.cooldown() >= 0) {
                         user.getItemCooldownManager().set(stack, result.cooldown());
                     }

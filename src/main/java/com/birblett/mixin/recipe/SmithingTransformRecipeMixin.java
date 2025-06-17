@@ -43,21 +43,18 @@ public class SmithingTransformRecipeMixin {
         NbtComponent nbtComponent;
         if (!stack.isEmpty() && smithingRecipeInput.addition().isOf(Items.PRISMARINE_SHARD) && (smithingRecipeInput.base()
                 .isIn(EpicMod.CAN_AUGMENT)) && smithingRecipeInput.template().isOf(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) {
-            if((nbtComponent = smithingRecipeInput.base().get(DataComponentTypes.CUSTOM_DATA)) != null && nbtComponent.contains("Upgraded")
+            if((nbtComponent = smithingRecipeInput.base().get(DataComponentTypes.CUSTOM_DATA)) != null && nbtComponent.contains("Upgrade")
                 || (nbtComponent = smithingRecipeInput.addition().get(DataComponentTypes.CUSTOM_DATA)) == null || !nbtComponent.contains("Augment")) {
                 cir.setReturnValue(ItemStack.EMPTY);
                 return;
             }
             nbtComponent = smithingRecipeInput.addition().get(DataComponentTypes.CUSTOM_DATA);
             NbtCompound nbt = nbtComponent.getNbt();
-            if (!nbt.contains("Augment", NbtElement.INT_TYPE)) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                return;
-            }
             if (stack.get(DataComponentTypes.EQUIPPABLE) != null) {
                 EquipmentSlot slot = smithingRecipeInput.base().get(DataComponentTypes.EQUIPPABLE).slot();
                 Identifier id = Identifier.of("augment_" + slot.asString().toLowerCase());
-                List<Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> attributeList = switch(nbt.getInt("Augment")) {
+                int aug = nbt.getInt("Augment");
+                List<Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> attributeList = switch(aug) {
                     default -> List.of(getAttr(stack, ARMOR, id, 2, ADD_VALUE),
                             getAttr(stack, ARMOR_TOUGHNESS, id, 0.5, ADD_VALUE));
                     case 1 -> List.of(getAttr(stack, ATTACK_DAMAGE, id, 1, ADD_VALUE),
@@ -114,7 +111,7 @@ public class SmithingTransformRecipeMixin {
                 stack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(floats, flags, strings, ints));
                 NbtComponent n = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(new NbtCompound()));
                 NbtCompound nbtCompound = n.copyNbt();
-                nbtCompound.putBoolean("Upgraded", true);
+                nbtCompound.putInt("Upgrade", aug);
                 stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbtCompound));
             }
         } else if (!stack.isEmpty() && smithingRecipeInput.addition().getItem().equals(Items.NETHERITE_INGOT) && smithingRecipeInput.base()
@@ -137,7 +134,6 @@ public class SmithingTransformRecipeMixin {
                 stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, builder.build());
             }
         }
-        EpicMod.LOGGER.info("{}", stack);
     }
 
     private static List<Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> getSingle(ItemStack stack, RegistryEntry<EntityAttribute> e, Identifier id, double value, EntityAttributeModifier.Operation op) {

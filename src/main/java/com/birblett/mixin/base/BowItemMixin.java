@@ -3,15 +3,11 @@ package com.birblett.mixin.base;
 import com.birblett.EpicMod;
 import com.birblett.helper.PlayerTicker;
 import com.birblett.helper.Util;
-import com.birblett.interfaces.ItemSpoofer;
 import com.birblett.interfaces.ServerPlayerEntityInterface;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.LlamaSpitEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
@@ -19,7 +15,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -43,15 +38,6 @@ public abstract class BowItemMixin extends RangedWeaponItem {
                 Util.playSound(world, user, SoundEvents.ENTITY_ARROW_HIT_PLAYER, 1.0f, 2.0f);
                 ((ServerPlayerEntityInterface) player).getTickers(PlayerTicker.ID.FOCUS).set(5);
             }
-        }
-    }
-
-    @WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;setCurrentHand(Lnet/minecraft/util/Hand;)V"))
-    private void spoofItem(PlayerEntity user, Hand hand, Operation<Void> original) {
-        original.call(user, hand);
-        if (user instanceof ServerPlayerEntity player && hand == Hand.MAIN_HAND && Util.adaptabilityAmmo(user.getProjectileType(user
-                .getStackInHand(hand)))) {
-            ((ItemSpoofer) player.networkHandler).mainHand();
         }
     }
 

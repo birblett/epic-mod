@@ -11,6 +11,7 @@ import net.minecraft.util.Hand;
 public class PlayerTicker {
 
     public enum ID {
+        ASSAULT,
         BLINK,
         BURST_FIRE,
         CATALYST,

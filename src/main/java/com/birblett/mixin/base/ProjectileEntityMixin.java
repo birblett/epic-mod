@@ -74,6 +74,7 @@ public abstract class ProjectileEntityMixin implements ProjectileInterface, Abil
         if (this.hasAbility(Ability.SUMMON_ARROWS) && p.getOwner() instanceof LivingEntity owner && p.getWorld() instanceof ServerWorld
                 world) {
             new ArrowRain(owner, world, pos, this.weaponStack, this.projectileStack);
+            this.removeAbility(Ability.SUMMON_ARROWS);
         }
     }
 

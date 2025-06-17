@@ -16,6 +16,7 @@ public class EpicMod implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("epic-mod");
     public static final RegistryKey<Enchantment> ADAPTABILITY = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("adaptability"));
     public static final RegistryKey<Enchantment> ARROW_RAIN = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("arrow_rain"));
+    public static final RegistryKey<Enchantment> ASSAULT = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("assault"));
     public static final RegistryKey<Enchantment> BLASTING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("blasting"));
     public static final RegistryKey<Enchantment> BLINK = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("blink"));
     public static final RegistryKey<Enchantment> BURST_FIRE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("burst_fire"));

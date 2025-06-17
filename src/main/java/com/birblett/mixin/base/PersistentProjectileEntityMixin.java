@@ -22,7 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PersistentProjectileEntity.class)
 public abstract class PersistentProjectileEntityMixin implements AbilityUser, ProjectileInterface {
 
-
     @Unique
     private Double targetY = null;
 
@@ -37,12 +36,8 @@ public abstract class PersistentProjectileEntityMixin implements AbilityUser, Pr
         if (this.hasAbility(Ability.SUMMON_ARROWS) && p.getOwner() instanceof LivingEntity owner && p.getWorld() instanceof
                 ServerWorld world && p.getWeaponStack() != null) {
             new ArrowRain(owner, world, pos, p.getWeaponStack().copy(), p.getItemStack().copy());
+            this.removeAbility(Ability.SUMMON_ARROWS);
         }
-    }
-
-    @ModifyExpressionValue(method = "getDragInWater", at = @At(value = "CONSTANT", args = "floatValue=0.6f"))
-    private float modifyFloat(float original) {
-        return !((PersistentProjectileEntity) (Object) this).getWorld().isClient && this.hasAbility(Ability.IGNORE_WATER) ? 1 : original;
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
